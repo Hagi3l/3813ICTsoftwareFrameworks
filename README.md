@@ -28,3 +28,25 @@ Installed <a href="https://www.npmjs.com/package/array-add-num" target="_blank">
 
 Converted a declarative function to use arrow syntax.
 
+
+### Week 2 - Git Version Control
+- [x] Task1: Setting up Github
+
+Already setup!
+
+- [x] Task 2: Cloning and pushing changes
+
+Clone and push changes with the node project.
+
+- [x] Task 3: Write a README.md
+
+Created one of these!
+
+- [x] Task 4: Branching
+
+Created a new branch.
+
+- [x] Task 5: Merge Conflicts
+
+Solved merge conflicts.
+
