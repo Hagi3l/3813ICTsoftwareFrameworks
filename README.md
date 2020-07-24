@@ -42,6 +42,15 @@ Clone and push changes with the node project.
 
 Created one of these!
 
+| Week | Content |
+| --- | ---|
+| 1 | Introduction to JavaScript and Nodejs |
+| 2 | Code Version Control with Git and GitHub |
+| 3 | NodeJS as a Server |
+| 4 | Angular |
+| 5 | Data Persistence, Services and HTTP Request to a Server |
+| 6 | Reactive Programming and Sockets |
+
 - [x] Task 4: Branching
 
 Created a new branch.
@@ -49,4 +58,5 @@ Created a new branch.
 - [x] Task 5: Merge Conflicts
 
 Solved merge conflicts.
+
 
