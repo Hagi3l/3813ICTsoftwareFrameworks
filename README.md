@@ -2,9 +2,9 @@
 This repo contains the contents of Labs & Assessment from the entire 2nd Trimester 2020
 
 ## Assignment - Milestone 1
-- [x] Todo
+- [ ] Todo
 ## Assignment - Milestone 2
-- [x] Todo
+- [ ] Todo
 
 ## Labs
 ### Week 1
