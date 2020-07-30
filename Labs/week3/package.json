@@ -2,7 +2,7 @@
   "name": "week3_server",
   "version": "1.0.0",
   "description": "Week 3 tasks",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "node server.js"
   },
