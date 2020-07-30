@@ -1,0 +1,14 @@
+{
+  "name": "week3_server",
+  "version": "1.0.0",
+  "description": "Week 3 tasks",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "author": "Valentin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
