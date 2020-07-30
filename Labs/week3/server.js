@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const http = require('http').Server(app);
+
+require('./routes/accountroutes.js')(app, path);
 
 app.use(express.static(__dirname + '/www'));
 
@@ -14,3 +17,4 @@ let server = http.listen(3000, function () {
 app.get('/test', function(req, res) {
     res.sendFile(__dirname + '/www/test.html');
 });
+
