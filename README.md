@@ -61,8 +61,8 @@ Solved merge conflicts.
 
 
 ### Week 3 - Express and jQuery
-- [ ] Task 1: Setting up a basic express project
+- [x] Task 1: Setting up a basic express project
 
-- [ ] Task 2: Routing
+- [x] Task 2: Routing
 
-- [ ] Task 3: Submitting Data
+- [x] Task 3: Submitting Data
