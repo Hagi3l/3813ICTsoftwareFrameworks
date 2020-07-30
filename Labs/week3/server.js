@@ -3,9 +3,13 @@ const app = express();
 const path = require('path');
 const http = require('http').Server(app);
 
-require('./routes/accountroutes.js')(app, path);
 
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/www'));
+
+require('./routes/accountroutes.js')(app, path);
 
 let server = http.listen(3000, function () {
     let host = server.address().address;
