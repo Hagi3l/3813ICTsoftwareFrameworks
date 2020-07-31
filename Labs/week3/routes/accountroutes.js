@@ -15,14 +15,9 @@ var customers = [
 ];
 
 function authenticate(email, password) {
-    // for (const item of customers) {
-    //     if (email == item.email && password == item.password) {
-    //         return true; 
-    //     }
-    // }  
 
-    // return false;
     return customers.some(item => email == item.email && password == item.password);
+
 }
 
 module.exports = function(app, path) {
