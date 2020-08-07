@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   itemClicked() {
-    if(this.auth = this.database.some(item => this.email == item.email && this.password == item.password)) {
+    if(this.database.some(item => this.email == item.email && this.password == item.password)) {
       this.router.navigateByUrl('/account');
     }
 
