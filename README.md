@@ -66,3 +66,25 @@ Solved merge conflicts.
 - [x] Task 2: Routing
 
 - [x] Task 3: Submitting Data
+
+### Week 4 - Angular, Models and Functions
+- [x] Task 1: Creating an angular project
+
+- [x] Task 2: Create two new Components
+
+- [x] Task 3: create a log-in form
+
+- [x] Task 4: Create a login function
+
+- [x] Task 5: New git repository
+
+### Week 5 - Angular and Local Storage
+- [ ] Task 1: Creating a Branch
+
+- [ ] Task 2: Routing & Array
+
+- [ ] Task 3: Profile Link
+
+- [ ] Task 4: Logout button
+
+- [ ] Task 5: Commit
