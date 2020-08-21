@@ -79,12 +79,12 @@ Solved merge conflicts.
 - [x] Task 5: New git repository
 
 ### Week 5 - Angular and Local Storage
-- [ ] Task 1: Creating a Branch
+- [x] Task 1: Creating a Branch
 
-- [ ] Task 2: Routing & Array
+- [x] Task 2: Routing & Array
 
-- [ ] Task 3: Profile Link
+- [x] Task 3: Profile Link
 
-- [ ] Task 4: Logout button
+- [x] Task 4: Logout button
 
-- [ ] Task 5: Commit
+- [x] Task 5: Commit
