@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       if (data.ok) {
         this.httpClient.post(BACKEND_URL + '/api/login-success', data, httpOptions)
         .subscribe((m: any) => {console.log('hello');});
-        this.router.navigateByUrl('account');
+        this.router.navigateByUrl('profile');
 
       } else {
         alert('Sorry, invalid username or password');
