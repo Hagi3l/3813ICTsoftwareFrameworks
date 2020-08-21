@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   password = '';
 
   userDetails = {username: this.email, password: this.password};
-  userObj = {userid: 1, username: this.userDetails.username, userbirthdate: null, userage: 100};
 
   ngOnInit() {}
 
@@ -37,8 +36,13 @@ export class LoginComponent implements OnInit {
     .subscribe((data: any) => {
       console.log(data);
       if (data.ok) {
+        sessionStorage.setItem('userid', data.userid.toString());
+        sessionStorage.setItem('username', data.username.toString());
+        sessionStorage.setItem('birthdate', data.birthdate.toString());
+        sessionStorage.setItem('age', data.age.toString());
+        sessionStorage.setItem('email', data.email.toString());
         this.httpClient.post(BACKEND_URL + '/api/login-success', data, httpOptions)
-        .subscribe((m: any) => {console.log('hello');});
+        .subscribe((m: any) => {console.log(m);});
         this.router.navigateByUrl('profile');
 
       } else {
