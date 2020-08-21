@@ -1,20 +1,20 @@
 const express = require('express');
 const app = express();
-const path = require('path');
-const http = require('http').Server(app);
 
-
+let cors = require('cors');
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
 
-//require('./routes/accountroutes.js')(app, path);
+const path = require('path');
 
+const http = require('http').Server(app);
 let server = http.listen(3000, function () {
-    let host = server.address().address;
-    let port = server.address().port;
-    console.log("My first Nodejs Server!");
-    console.log("Server listening on: " + host + "port: " + port);
+  let host = server.address().address;
+  let port = server.address().port;
+  console.log("Server listening on: " + host + "port: " + port);
 });
 
+app.post('/api/auth', require('./router/api-login'));
+app.post('/api/login-success', require('./router/login-success'));
