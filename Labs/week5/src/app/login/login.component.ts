@@ -17,24 +17,28 @@ const BACKEND_URL = 'http://localhost:3000';
 
 export class LoginComponent implements OnInit {
 
-  // insert form username and password to userpwd object
-  // userpwd: Userpwd = {username: '', password: ''};
-  // userobj: Userobj = '';
   constructor(private router: Router, private httpClient: HttpClient) {}
 
   email = '';
   password = '';
+  session = null;
 
   userDetails = {username: this.email, password: this.password};
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (sessionStorage.length > 0){
+      this.session = true;
+      this.router.navigateByUrl('profile');
+    } else {
+      this.session = false;
+    }
+
+  }
 
   public loginfunc() {
 
-    console.log('hello! I am in the login function');
     this.httpClient.post(BACKEND_URL + '/api/auth', this.userDetails, httpOptions)
     .subscribe((data: any) => {
-      console.log(data);
       if (data.ok) {
         sessionStorage.setItem('userid', data.userid.toString());
         sessionStorage.setItem('username', data.username.toString());
@@ -42,9 +46,8 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('age', data.age.toString());
         sessionStorage.setItem('email', data.email.toString());
         this.httpClient.post(BACKEND_URL + '/api/login-success', data, httpOptions)
-        .subscribe((m: any) => {console.log(m);});
+        .subscribe((m: any) => {});
         this.router.navigateByUrl('profile');
-
       } else {
         alert('Sorry, invalid username or password');
       }

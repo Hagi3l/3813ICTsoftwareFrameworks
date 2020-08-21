@@ -14,9 +14,25 @@ export class ProfileComponent implements OnInit {
   birthdate = sessionStorage.getItem('birthdate');
   age = sessionStorage.getItem('age');
   email = sessionStorage.getItem('email');
+  session = null;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (sessionStorage.length == 0){
+      this.session = false;
+      this.router.navigateByUrl('');
+    } else {
+      this.session = true;
+    }
+  }
+
+  logout() {
+    console.log('clicked btn');
+    this.session = false;
+    sessionStorage.clear();
+    localStorage.clear();
+    this.router.navigateByUrl('');
+  }
 
 }

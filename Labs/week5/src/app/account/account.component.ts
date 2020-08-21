@@ -12,11 +12,17 @@ export class AccountComponent implements OnInit {
   birthdate = sessionStorage.getItem('birthdate');
   age = sessionStorage.getItem('age');
   email = sessionStorage.getItem('email');
+  session = null;
 
   constructor(private router: Router) { }
 
   ngOnInit(){
-    console.log(this.username, this.birthdate, this.age, this.email);
+    if (sessionStorage.length == 0){
+      this.session = false;
+      this.router.navigateByUrl('');
+    } else {
+      this.session = true;
+    }
   }
 
 
@@ -27,5 +33,13 @@ export class AccountComponent implements OnInit {
     sessionStorage.setItem('age', this.age.toString());
     sessionStorage.setItem('email', this.email.toString());
     this.router.navigateByUrl('profile');
+  }
+
+  logout() {
+    console.log('clicked btn');
+    this.session = false;
+    sessionStorage.clear();
+    localStorage.clear();
+    this.router.navigateByUrl('');
   }
 }

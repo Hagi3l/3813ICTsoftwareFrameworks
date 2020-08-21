@@ -3,6 +3,7 @@
 </head>
 
 <div class="wrapper fadeInDown">
+  <div *ngIf="session"><a (click)="logout()" href=""><button class="button ui-button-icon-primary">Logout</button></a></div>
   <h1>Edit Profile</h1>
   <div id="formContent">
     <form>
