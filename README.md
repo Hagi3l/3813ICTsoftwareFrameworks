@@ -88,3 +88,11 @@ Solved merge conflicts.
 - [x] Task 4: Logout button
 
 - [x] Task 5: Commit
+
+### Week 6 - Node and Sockets
+- [ ] Task 1: Create a new project
+
+- [ ] Task 2: Create a Chat Component
+
+- [ ] Task 3: Server side code for sockets.
+
