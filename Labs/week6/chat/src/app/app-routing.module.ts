@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+import { ChatInterfaceComponent } from './chat-interface/chat-interface.component'
+
+const routes: Routes = [
+
+  {path: '', component: ChatInterfaceComponent},
+
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
