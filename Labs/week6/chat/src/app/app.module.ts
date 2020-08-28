@@ -5,6 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatInterfaceComponent } from './chat-interface/chat-interface.component';
 
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { SocketService } from './services/socket.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -12,9 +16,11 @@ import { ChatInterfaceComponent } from './chat-interface/chat-interface.componen
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
