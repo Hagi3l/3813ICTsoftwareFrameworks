@@ -6,4 +6,9 @@
     </div>
     <button (click)="chat(newMessage)" class="btn btn-primary">Send</button>
   </form>
+
+  <h3>Chat Messages</h3>
+  <ul>
+    <li *ngFor="let message of messages">{{message}}</li>
+  </ul>
 </div>
