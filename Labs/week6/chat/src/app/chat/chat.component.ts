@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../services/socket.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-chat-interface',
-  templateUrl: './chat-interface.component.html',
-  styleUrls: ['./chat-interface.component.css']
+  selector: 'app-chat',
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.css']
 })
-export class ChatInterfaceComponent implements OnInit {
+export class ChatComponent implements OnInit {
 
-  newMessage:string="";
+  newMessage:string = "";
   messages:string[] = [];
   ioConnection:any;
 
@@ -20,13 +21,12 @@ export class ChatInterfaceComponent implements OnInit {
 
   private initIoConnection() {
     this.socketService.initSocket();
-    this.ioConnection = this.socketService.onMessage()
-      .subscribe((message:string) => {
-        this.messages.push(message);
-      });
+    this.ioConnection = this.socketService.onMessage().subscribe((message:string) => {
+      this.messages.push(message);
+    });
   }
 
-  private chat() {
+  public chat() {
 
     if (this.newMessage) {
       this.socketService.send(this.newMessage);
@@ -34,7 +34,5 @@ export class ChatInterfaceComponent implements OnInit {
     } else {
       console.log('No Message');
     }
-
   }
-
 }

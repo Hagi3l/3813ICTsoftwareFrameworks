@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import io from 'socket.io-client'
+import * as io from 'socket.io-client';
 
 const SERVER_URL = 'http://localhost:3000';
 
@@ -28,6 +28,4 @@ export class SocketService {
     });
     return observable;
   }
-
-
 }
