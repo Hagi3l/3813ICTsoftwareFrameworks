@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../services/socket.service';
-import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-chat',

@@ -9,12 +9,16 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 
 import { SocketService } from './services/socket.service';
+import { NavbarComponent } from './navbar/navbar.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
+    NavbarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
