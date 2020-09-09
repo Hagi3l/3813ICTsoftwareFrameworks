@@ -10,7 +10,7 @@ const SERVER_URL = 'http://localhost:3000';
 })
 export class SocketService {
 
-  private socket;
+  private socket: any;
 
   constructor() { }
 
@@ -25,6 +25,20 @@ export class SocketService {
   public onMessage(): Observable<any> {
     let observable = new Observable(observer => {
       this.socket.on('message', (data:string) => observer.next(data));
+    });
+    return observable;
+  }
+
+  public joinRoom(data: any) {
+    this.socket.emit('join', data);
+  }
+
+  public newUserJoined() {
+    let observable = new Observable<{username:String, message:String}>(observer => {
+      this.socket.on('new user joined', (data) => {
+        observer.next(data);
+      });
+      return () => {this.socket.disconnected();}
     });
     return observable;
   }

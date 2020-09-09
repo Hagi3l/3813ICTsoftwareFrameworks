@@ -13,6 +13,14 @@ module.exports = {
       socket.on('message', (message) => {
         io.emit('message', message);
       });
+
+      socket.on('join', (data) => {
+          socket.join(data.room);
+          console.log(data.username + ' entered ' + data.room);
+
+          socket.broadcast.to(data.room).emit('new user joined', {username:data.username, message: 'has joined'});
+      });
+
     });
   }
 };

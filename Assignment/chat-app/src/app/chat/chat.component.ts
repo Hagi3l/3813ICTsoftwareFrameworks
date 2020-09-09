@@ -10,8 +10,11 @@ import { SocketService } from '../services/socket.service';
 export class ChatComponent implements OnInit {
 
   newMessage:string = "";
-  messages:string[] = [];
+  messages:Array<{username:String, message:String}> = [];
   ioConnection:any;
+
+  username = sessionStorage.getItem('username');
+  room = "Testing";
 
   constructor(private socketService:SocketService) { }
 
@@ -21,9 +24,11 @@ export class ChatComponent implements OnInit {
 
   private initIoConnection() {
     this.socketService.initSocket();
-    this.ioConnection = this.socketService.onMessage().subscribe((message:string) => {
-      this.messages.push(message);
-    });
+    // this.ioConnection = this.socketService.onMessage().subscribe((message:string) => {
+    //   this.messages.push(message);
+    // });
+    this.socketService.newUserJoined()
+    .subscribe(data=> this.messages.push(data));
   }
 
   public chat() {
@@ -34,5 +39,9 @@ export class ChatComponent implements OnInit {
     } else {
       console.log('No Message');
     }
+  }
+
+  public join() {
+    this.socketService.joinRoom({username: this.username, room: this.room});
   }
 }

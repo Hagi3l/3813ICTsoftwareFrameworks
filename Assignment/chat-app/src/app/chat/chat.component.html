@@ -6,11 +6,12 @@
     </div>
     <div class="form-group">
       <button (click)="chat()" class="btn btn-primary">Send</button>
+      <button (click)="join()" class="btn btn-primary">Join</button>
     </div>
   </form>
 
   <h3>Chat Messages</h3>
   <ul>
-    <li *ngFor="let message of messages">{{message}}</li>
+    <li *ngFor="let item of messages">{{item.username}}: {{item.message}}</li>
   </ul>
 </div>
