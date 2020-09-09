@@ -1,15 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+};
+
+
+const BACKEND_URL = 'http://localhost:3000';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private httpClient: HttpClient) {}
 
-  ngOnInit(): void {
+  username: string;
+  password: string;
+  session: boolean;
+
+  loginDetails = {username: this.username, password: this.password};
+
+  ngOnInit() {
+    if (sessionStorage.length > 0){
+      this.session = true;
+      this.router.navigateByUrl('');
+    } else {
+      this.session = false;
+    }
   }
 
+  public loginfunc() {
+
+    console.log(this.loginDetails);
+    this.httpClient.post(BACKEND_URL + '/api/login-auth', this.loginDetails, httpOptions)
+    .subscribe((data: any) => {
+      if (data.ok) {
+        sessionStorage.setItem('id', data.id.toString());
+        sessionStorage.setItem('username', data.username.toString());
+        this.httpClient.post(BACKEND_URL + '/api/login-success', data, httpOptions)
+        .subscribe((m: any) => {});
+        this.router.navigateByUrl('chat');
+      } else {
+        alert('Sorry, invalid username or password');
+      }
+
+    });
+  }
 }
