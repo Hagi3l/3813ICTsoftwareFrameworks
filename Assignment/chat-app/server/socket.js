@@ -10,8 +10,8 @@ module.exports = {
         console.log('User has disconnect');
       });
 
-      socket.on('message', (message) => {
-        io.emit('message', message);
+      socket.on('message', (data) => {
+        io.in(data.room).emit('message', {username: data.username, message: data.message});
       });
 
       socket.on('join', (data) => {
@@ -20,6 +20,13 @@ module.exports = {
 
           socket.broadcast.to(data.room).emit('new user joined', {username:data.username, message: 'has joined'});
       });
+
+      socket.on('leave', (data) => {
+
+        console.log(data.username + ' left ' + data.room);
+        socket.broadcast.to(data.room).emit('user left', {username:data.username, message: 'has left'});
+        socket.leave(data.room);
+    });
 
     });
   }

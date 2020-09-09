@@ -9,7 +9,7 @@ import { SocketService } from '../services/socket.service';
 })
 export class ChatComponent implements OnInit {
 
-  newMessage:string = "";
+  newMessage:String;
   messages:Array<{username:String, message:String}> = [];
   ioConnection:any;
 
@@ -24,18 +24,20 @@ export class ChatComponent implements OnInit {
 
   private initIoConnection() {
     this.socketService.initSocket();
-    // this.ioConnection = this.socketService.onMessage().subscribe((message:string) => {
-    //   this.messages.push(message);
-    // });
+    this.socketService.onMessage()
+    .subscribe(data=>this.messages.push(data));
+
     this.socketService.newUserJoined()
+    .subscribe(data=> this.messages.push(data));
+
+    this.socketService.userLeftRoom()
     .subscribe(data=> this.messages.push(data));
   }
 
   public chat() {
-
     if (this.newMessage) {
-      this.socketService.send(this.newMessage);
-      this.newMessage=null;
+      this.socketService.send({username: this.username, room: this.room, message: this.newMessage});
+      this.newMessage = '';
     } else {
       console.log('No Message');
     }
@@ -43,5 +45,9 @@ export class ChatComponent implements OnInit {
 
   public join() {
     this.socketService.joinRoom({username: this.username, room: this.room});
+  }
+
+  public leave() {
+    this.socketService.leaveRoom({username: this.username, room: this.room});
   }
 }

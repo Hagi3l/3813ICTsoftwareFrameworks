@@ -18,13 +18,16 @@ export class SocketService {
     this.socket = io(SERVER_URL);
   }
 
-  public send(message: string): void {
-    this.socket.emit('message', message);
+  public send(data: any) {
+    this.socket.emit('message', data);
   }
 
   public onMessage(): Observable<any> {
-    let observable = new Observable(observer => {
-      this.socket.on('message', (data:string) => observer.next(data));
+    let observable = new Observable<{username:String, message:String}>(observer => {
+      this.socket.on('message', (data) => {
+        observer.next(data);
+      });
+      return () => {this.socket.disconnected();}
     });
     return observable;
   }
@@ -36,6 +39,20 @@ export class SocketService {
   public newUserJoined() {
     let observable = new Observable<{username:String, message:String}>(observer => {
       this.socket.on('new user joined', (data) => {
+        observer.next(data);
+      });
+      return () => {this.socket.disconnected();}
+    });
+    return observable;
+  }
+
+  public leaveRoom(data: any) {
+    this.socket.emit('leave', data);
+  }
+
+  public userLeftRoom() {
+    let observable = new Observable<{username:String, message:String}>(observer => {
+      this.socket.on('user left', (data) => {
         observer.next(data);
       });
       return () => {this.socket.disconnected();}
