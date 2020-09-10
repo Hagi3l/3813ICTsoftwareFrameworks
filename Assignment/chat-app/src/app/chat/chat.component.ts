@@ -18,7 +18,7 @@ export class ChatComponent implements OnInit {
   newMessage:String;
   messages:Array<{username:String, message:String}> = [];
   groups:Array<{id:Number, group_name:String, users:Array<String>}> = [];
-  group:String;
+  group:Array<{id:Number, group_name:String, users:Array<String>}>;
   channels:Array<{id:Number, channel_name:String, group_id:Number, users:Array<String>}> = [];
   channel:String;
   ioConnection:any;
@@ -76,21 +76,16 @@ export class ChatComponent implements OnInit {
 
   private getChannnels(group_id) {
 
+
     this.httpClient.post(BACKEND_URL + '/api/channels', httpOptions)
     .subscribe((data: any) => {
       if (data) {
         data.forEach(c => {
-          this.groups.forEach(g => {
-            if (g.id == c.group_1) {
-              console.log('found a channel in the group');
-            }
-          })
-          c.users.forEach(user => {
-            if (user == this.username) {
-              this.channels.push(c);
-              console.log(this.channels);
-            }
-          });
+          if (c.group_id == group_id) {
+            console.log('found a channel in the group');
+            console.log(c.channel_name);
+            this.channels.push(c);
+          }
         });
         // sessionStorage.setItem('id', data.id.toString());
         // sessionStorage.setItem('username', data.username.toString());
@@ -125,8 +120,8 @@ export class ChatComponent implements OnInit {
   }
 
   public groupSelected() {
-    console.log('changed!');
-    console.log(this.group);
+    this.channels = [];
+    this.getChannnels(this.group);
 
   }
 }
