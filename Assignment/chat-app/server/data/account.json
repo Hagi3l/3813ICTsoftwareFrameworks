@@ -1,0 +1,39 @@
+{
+  "users": [
+      {
+      "id": 1,
+      "username": "super",
+      "email": "super@privetchat.com",
+      "password": "super",
+      "role": "super-admin"
+    },
+    {
+      "id": 2,
+      "username": "admin1",
+      "email": "admin1@privetchat.com",
+      "password": "admin1",
+      "role": "super-admin"
+    },
+    {
+      "id": 3,
+      "username": "admin2",
+      "email": "admin2@privetchat.com",
+      "password": "admin2",
+      "role": "group-admin"
+    },
+    {
+      "id": 4,
+      "username": "admin3",
+      "email": "admin@privetchat.com",
+      "password": "admin3",
+      "role": "group-assis-admin"
+    },
+    {
+      "id": 5,
+      "username": "user1",
+      "email": "user1@privetchat.com",
+      "password": "user1",
+      "role": "user"
+    }
+  ]
+}
