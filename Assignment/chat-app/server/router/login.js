@@ -1,6 +1,7 @@
 module.exports = function(req, res) {
 
     const fs = require('fs');
+    let ok = false;
 
     if (!req.body) {
         return res.sendStatus(400);
@@ -18,6 +19,8 @@ module.exports = function(req, res) {
             findUser.password = "";
             console.log(findUser);
             res.send(findUser);
+        } else {
+          return res.send(ok);
         }
     });
 
