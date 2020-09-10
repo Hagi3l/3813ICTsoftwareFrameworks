@@ -24,7 +24,6 @@ export class ChatComponent implements OnInit {
   ioConnection:any;
 
   username = localStorage.getItem('username');
-  room = "Testing";
   session: boolean;
 
   constructor(private socketService:SocketService, private router: Router, private httpClient: HttpClient) { }
@@ -103,7 +102,7 @@ export class ChatComponent implements OnInit {
 
   public chat() {
     if (this.newMessage) {
-      this.socketService.send({username: this.username, room: this.room, message: this.newMessage});
+      this.socketService.send({username: this.username, room: this.channel, message: this.newMessage});
       this.newMessage = '';
       //localStorage.setItem('messages', this.messages)
     } else {
@@ -112,11 +111,11 @@ export class ChatComponent implements OnInit {
   }
 
   public join() {
-    this.socketService.joinRoom({username: this.username, room: this.room});
+    this.socketService.joinRoom({username: this.username, room: this.channel});
   }
 
   public leave() {
-    this.socketService.leaveRoom({username: this.username, room: this.room});
+    this.socketService.leaveRoom({username: this.username, room: this.channel});
   }
 
   public groupSelected() {
