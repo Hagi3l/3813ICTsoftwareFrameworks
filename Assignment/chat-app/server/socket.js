@@ -22,7 +22,6 @@ module.exports = {
       });
 
       socket.on('leave', (data) => {
-
         console.log(data.username + ' left ' + data.room);
         socket.broadcast.to(data.room).emit('user left', {username:data.username, message: 'has left'});
         socket.leave(data.room);
