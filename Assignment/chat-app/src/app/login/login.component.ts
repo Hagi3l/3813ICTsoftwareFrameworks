@@ -35,15 +35,10 @@ export class LoginComponent implements OnInit {
     this.httpClient.post(BACKEND_URL + '/api/login-auth', this.loginDetails, httpOptions)
     .subscribe((data: any) => {
       if (data.ok) {
-        console.log(data);
         localStorage.setItem('active-user', data.toString());
-        // sessionStorage.setItem('id', data.id.toString());
-        // sessionStorage.setItem('username', data.username.toString());
-        // localStorage.setItem('id', data.id.toString());
-        // localStorage.setItem('username', data.username.toString());
         // this.httpClient.post(BACKEND_URL + '/api/login-success', data, httpOptions)
         // .subscribe((m: any) => {});
-        // this.router.navigateByUrl('chat');
+        this.router.navigateByUrl('account');
       } else {
         alert('Sorry, invalid username or password');
       }

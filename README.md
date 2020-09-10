@@ -2,7 +2,23 @@
 This repo contains the contents of Labs & Assessment from the entire 2nd Trimester 2020
 
 ## Assignment - Milestone 1
-- [ ] Todo
+- [x] Git
+    - The git repo began at the start of the trimester to ensure all the work from assignments and labs were documented and back up regularly. In saying that, the repo was used to document all the changes that occurred during the development of the chat application. I was able to restore functionality that wasn’t working to a previous state which was very beneficial and simply a time saver.
+- [x] Data Structures
+    - For the client and server, the primary data structure was objects in the form of JSON. These objects were used throughout the project to ensure the correct information as gathered. This information was also manipulated and reconstructed when necessary.
+- [x] REST API
+    A REST API was used to retrieve data from the server (Node.js) by POST request from the client slide (Angular). This connection was helpful in gathering quick, up to date information for the client to view at any one time. These connections were asynchronous meaning multiply connections is possible resulting in speedy information gathering and updating. The information was not only retrieval but also saving to existing files.
+- [x] Routes
+    - ‘/api/login-auth’ – returns a user object after processing of the request to ensure the login details are correct for the user.
+    - ‘/api/groups’ – returns a group object containing the list of groups in the json file.
+    - ‘/api/channels’ – returns a channel object containing the list of channels in the json file.
+- [x] Angular Architecture
+
+    - Components were used to break the application into section for separation of concerns. This ensured modularity and easier to debug and maintain.
+    - Services were used to interface between socket.io client and backend.
+    - Routes were used to direct a user to certain paths around the application.
+
+
 ## Assignment - Milestone 2
 - [ ] Todo
 

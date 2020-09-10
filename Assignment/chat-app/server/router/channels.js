@@ -10,7 +10,6 @@ module.exports = function(req, res) {
         if (err) {
             throw err;
         } else {
-            console.log(JSON.parse(data).channels);
             res.send(JSON.parse(data).channels);
         }
     });

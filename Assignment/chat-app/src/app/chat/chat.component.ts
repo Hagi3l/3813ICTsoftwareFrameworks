@@ -29,6 +29,15 @@ export class ChatComponent implements OnInit {
     constructor(private socketService:SocketService, private router: Router, private httpClient: HttpClient) { }
 
     ngOnInit() {
+
+      try {
+          this.username;
+          }
+        catch(err){
+          alert ("Please login");
+          this.router.navigateByUrl('/login');
+        }
+
         this.getGroups();
         this.initIoConnection();
     }
@@ -43,6 +52,8 @@ export class ChatComponent implements OnInit {
 
         this.socketService.userLeftRoom()
         .subscribe(data => this.messages.push(data));
+
+        console.log(this.messages);
     }
 
     private getGroups() {
@@ -81,17 +92,20 @@ export class ChatComponent implements OnInit {
         });
     }
 
+
     public chat() {
         if (this.newMessage) {
+
             this.socketService.send({username: this.username, room: this.channel, message: this.newMessage});
             this.newMessage = '';
-            //localStorage.setItem('messages', this.messages)
+
         } else {
             console.log('No Message');
         }
     }
 
     public join() {
+
         this.socketService.joinRoom({username: this.username, room: this.channel});
     }
 
