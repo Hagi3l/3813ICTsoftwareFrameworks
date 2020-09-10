@@ -8,6 +8,14 @@ module.exports = function(req, res) {
     'password': 'super',
     'role': 'Super Admin',
     'ok': null
+  },
+  {
+    'id': 2,
+    'username': 'test',
+    'email': 'test@privetchat.com',
+    'password': 'test',
+    'role': 'Super Admin',
+    'ok': null
   }
 ];
 

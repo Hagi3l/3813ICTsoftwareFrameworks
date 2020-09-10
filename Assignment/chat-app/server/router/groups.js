@@ -5,7 +5,8 @@ module.exports = function(req, res) {
       'id': 1,
       'group_name': 'Elite',
       'users': [
-        'super'
+        'super',
+        'test'
       ]
     },
     {
@@ -38,7 +39,6 @@ module.exports = function(req, res) {
     },
   ];
 
-  console.log(req);
   res.send(groups);
 
 };
