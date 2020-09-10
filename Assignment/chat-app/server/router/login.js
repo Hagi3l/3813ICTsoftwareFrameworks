@@ -6,6 +6,7 @@ module.exports = function(req, res) {
     'username': 'super',
     'email': 'super@privetchat.com',
     'password': 'super',
+    'role': 'Super Admin',
     'ok': null
   }
 ];
