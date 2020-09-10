@@ -1,49 +1,19 @@
 module.exports = function(req, res) {
 
-  let channels = [
-    {
-      'id': 1,
-      'channel_name': 'Private',
-      'group_id': 1,
-      'users': [
-        'super'
-      ]
-    },
-    {
-      'id': 2,
-      'channel_name': 'join me',
-      'group_id': 1,
-      'users': [
-        'super'
-      ]
-    },
-    {
-      'id': 3,
-      'channel_name': 'dammmm',
-      'group_id': 1,
-      'users': [
-        'super'
-      ]
-    },
-    {
-      'id': 4,
-      'channel_name': 'wow',
-      'group_id': 1,
-      'users': [
-        'super'
-      ]
-    },
-    {
-      'id': 5,
-      'channel_name': 'quick Club',
-      'group_id': 2,
-      'users': [
-        'super'
-      ]
-    },
-  ];
+  const fs = require('fs');
 
-  res.send(channels);
+    if (!req.body) {
+        return res.sendStatus(400);
+    }
+
+    fs.readFile('./data/channels_groups.json', (err, data) => {
+        if (err) {
+            throw err;
+        } else {
+            console.log(JSON.parse(data).channels);
+            res.send(JSON.parse(data).channels);
+        }
+    });
 
 };
 
