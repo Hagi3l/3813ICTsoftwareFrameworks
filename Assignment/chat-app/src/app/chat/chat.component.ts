@@ -54,20 +54,11 @@ export class ChatComponent implements OnInit {
                     g.users.forEach(user => {
                         if (user == this.username) {
                             this.groups.push(g);
-                            console.log(this.groups);
                         }
                     });
                 });
-
-                // sessionStorage.setItem('id', data.id.toString());
-                // sessionStorage.setItem('username', data.username.toString());
-                // localStorage.setItem('id', data.id.toString());
-                // localStorage.setItem('username', data.username.toString());
-                // this.httpClient.post(BACKEND_URL + '/api/login-success', data, httpOptions)
-                // .subscribe((m: any) => {});
-                // this.router.navigateByUrl('chat');
             } else {
-                alert('Sorry, invalid username or password');
+                alert('No groups, please add some in the admin panel');
             }
 
         });
@@ -75,26 +66,16 @@ export class ChatComponent implements OnInit {
 
     private getChannnels(group_id) {
 
-
         this.httpClient.post(BACKEND_URL + '/api/channels', httpOptions)
         .subscribe((data: any) => {
             if (data) {
                 data.forEach(c => {
                     if (c.group_id == group_id) {
-                        console.log('found a channel in the group');
-                        console.log(c.channel_name);
                         this.channels.push(c);
                     }
                 });
-                // sessionStorage.setItem('id', data.id.toString());
-                // sessionStorage.setItem('username', data.username.toString());
-                // localStorage.setItem('id', data.id.toString());
-                // localStorage.setItem('username', data.username.toString());
-                // this.httpClient.post(BACKEND_URL + '/api/login-success', data, httpOptions)
-                // .subscribe((m: any) => {});
-                // this.router.navigateByUrl('chat');
             } else {
-                alert('Sorry, invalid username or password');
+                alert('No channels available, please add some in the admin panel');
             }
 
         });

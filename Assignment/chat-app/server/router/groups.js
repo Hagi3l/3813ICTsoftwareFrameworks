@@ -1,7 +1,6 @@
 module.exports = function(req, res) {
 
     const fs = require('fs');
-    let ok = false;
 
     if (!req.body) {
         return res.sendStatus(400);
@@ -11,6 +10,8 @@ module.exports = function(req, res) {
         if (err) {
             throw err;
         } else {
+            console.log(JSON.parse(data).groups);
+            console.log(JSON.parse(data).channels);
             res.send(JSON.parse(data).groups);
         }
     });
