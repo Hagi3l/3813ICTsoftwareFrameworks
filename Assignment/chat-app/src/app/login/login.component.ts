@@ -26,12 +26,7 @@ export class LoginComponent implements OnInit {
   loginDetails = {username: this.username, password: this.password};
 
   ngOnInit() {
-    if (sessionStorage.length > 0){
-      this.session = true;
-      this.router.navigateByUrl('');
-    } else {
-      this.session = false;
-    }
+
   }
 
   public loginfunc() {
@@ -42,6 +37,8 @@ export class LoginComponent implements OnInit {
       if (data.ok) {
         sessionStorage.setItem('id', data.id.toString());
         sessionStorage.setItem('username', data.username.toString());
+        localStorage.setItem('id', data.id.toString());
+        localStorage.setItem('username', data.username.toString());
         this.httpClient.post(BACKEND_URL + '/api/login-success', data, httpOptions)
         .subscribe((m: any) => {});
         this.router.navigateByUrl('chat');

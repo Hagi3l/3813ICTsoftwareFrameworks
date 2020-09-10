@@ -1,4 +1,32 @@
 <div class="container">
+
+  <h3>Groups</h3>
+  <div class="row">
+    <div class="col-sm-5">
+      <label for="groups">Choose a Group</label>
+      <select name="groups" id="groups" class="form-control" [(ngModel)]="group" (change)=(groupSelected())>
+          <option *ngFor="let g of groups" value="{{g.group_name}}">{{g.group_name}}</option>
+      </select>
+    </div>
+  </div>
+  <h3>Channels</h3>
+  <div class="row">
+    <div class="col-sm-5">
+      <label for="channels">Choose a Group</label>
+      <select name="channels" id="channels" class="form-control" [(ngModel)]="channel">
+          <option *ngFor="let c of channels" value="{{c.channel_name}}">{{c.channel_name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <h3>Messages</h3>
+    <div class="row">
+      <div class="well" style="height:200px; padding:15px;">
+          <div *ngFor="let item of messages">
+          <span><strong>{{item.username}} : </strong> {{item.message}}</span>
+          </div>
+      </div>
+  </div>
   <form>
     <div class="form-group">
       <label for="newMessage">New Message</label>
@@ -10,9 +38,46 @@
       <button (click)="leave()" class="btn btn-primary">Leave</button>
     </div>
   </form>
-
-  <h3>Chat Messages</h3>
-  <ul>
-    <li *ngFor="let item of messages">{{item.username}}: {{item.message}}</li>
-  </ul>
 </div>
+
+
+
+<!-- <div class="container-fluid">
+  <div class="row">
+      <h2>Realtime Chat Application</h2>
+      <hr>
+  </div>
+  <div class="row">
+      <div class="col-sm-5">
+          <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" [(ngModel)]="user" class="form-control" id="username" placeholder="Enter username">
+
+          </div>
+      </div>
+      <div class="col-sm-5">
+          <label for="roomInput">Choose room</label>
+          <select name="roomInput" id="roomInput" class="form-control" [(ngModel)]="room">
+              <option value="Lobby">Lobby</option>
+              <option value="Hall">Hall</option>
+              <option value="Deluxe">Deluxe</option>
+          </select>
+      </div>
+      <div class="col sm-2">
+          <div style="margin-top:19px;" class="pull-right">
+              <button type="button" class="btn btn-primary" (click)="join()">Join</button>
+              <button type="button" class="btn btn-default" (click)="leave()">Leave</button>
+          </div>
+      </div>
+  </div>
+
+
+  <div class="row">
+      <div class="col-sm-10">
+          <input type="text" class="form-control">
+      </div>
+      <div class="col-sm-2">
+              <button type="button" class="btn btn-success pull-right">Send</button>
+      </div>
+  </div>
+</div> -->
