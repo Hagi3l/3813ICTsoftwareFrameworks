@@ -12,6 +12,7 @@ import { ChatComponent } from './chat/chat.component';
 import { SocketService } from './services/socket.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
+import { AccountComponent } from './account/account.component';
 
 
 
@@ -20,7 +21,8 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     ChatComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
