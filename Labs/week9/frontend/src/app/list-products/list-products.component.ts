@@ -16,14 +16,14 @@ export class ListProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.productdata.getList().subscribe( (data) => {
-      console.log(this.productdata);
+      console.log(data);
       this.products = data;
     })
   }
 
   deleteProduct(id) {
     if ( confirm("Delete this item?")) {
-      this.productdata.delete(id).subscribe( (data) => {
+      this.productdata.remove(id).subscribe( (data) => {
         this.products = data;
       });
     }

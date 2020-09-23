@@ -25,8 +25,9 @@ export class ProductDataService {
     return this.http.post<any>('http://localhost:3000/api/update', product );
   }
 
-  delete(productID) {
-    return this.http.post<any>('http://localhost:3000/api/delete', { 'productid':productID });
+  remove(productID) {
+    console.log(productID);
+    return this.http.post<any>('http://localhost:3000/api/remove', { 'productid':productID });
   }
 
   //TODO - check if valid product id.
