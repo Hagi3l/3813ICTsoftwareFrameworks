@@ -72,7 +72,7 @@ export class AddProductsComponent implements OnInit {
     if (this.productid == null) {
       this.iderrorshow = !this.iderrorshow;
     } else {
-      this.newprod = new Products("", this.productid, this.productname, this.productdesc, this.productprice, this.productunits);
+      this.newprod = new Products(this.productid, this.productname, this.productdesc, this.productprice, this.productunits);
       this.proddata.add(this.newprod).subscribe( (data) => {
         console.log(data);
         this.noticeshow = true;
