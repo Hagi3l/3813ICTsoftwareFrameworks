@@ -1,10 +1,21 @@
+module.exports = function(collection, app) {
 
+    app.post('/api/add', (req, res) => {
 
+        if(!req.body) {return res.sendStatus(400)}
 
-exports.addDocument = function(collection, docArray, callback) {
-    collection.insertMany(docArray, function(err, result) {
-        console.log('Inserted docs to the collection');
-        console.log(docArray);
-        callback(result);
+        product = req.body;        
+
+        collection.find({'id':product.id}).count( (err, count) => {
+            if ( count == 0 ) {
+                collection.insertOne(product, (err, dbres) => {
+                    if (err) throw err;
+                    let num = dbres.insertedCount;
+                    res.send({'num':num, err:null});
+                });
+            } else {
+                res.send({num:0, err:'duplicated item'});
+            }
+        });
     });
 };
