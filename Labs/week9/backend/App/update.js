@@ -1,9 +1,16 @@
-exports.updateDocument = function(collection, queryJSON, updateJSON, callback) {
-    collection.updateOne(queryJSON, { $set: updateJSON }, function(err, result) {
-        console.log('Updated document with');
-        console.log(queryJSON);
-        console.log('SET: ');
-        console.log(updateJSON);
-        callback(result);
-  });
+module.exports = (collection, app, ObjectID) => {
+    
+    var result;
+    
+    app.post('/api/update', (req, res) => {
+        
+        if (!req.body) { return res.sendStatus(400)}
+
+        product = req.body;
+        var objectid = new ObjectID(product.objid);
+
+        collection.updateOne( {id:objectid}, { $set: {name:product.name, description:product.description, price: product.price, units:product.units} }, () => {
+            res.send({'ok':product.objid});
+        });
+    });
 };

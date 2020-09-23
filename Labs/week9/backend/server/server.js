@@ -4,7 +4,7 @@ const http = require('http').Server(app);
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
-var ObjectID = require('mongodb').ObjectID;
+var ObjectId = require('mongodb').ObjectID;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,12 +15,16 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
 
     const dbName = 'mydb';
     const db = client.db(dbName);
+    
+    // db.collection('products').drop();
     const collection = db.collection('products');
+
+    // db.products.drop();
 
     require('../App/add.js')(collection, app);
     require('../App/read.js')(collection, app);
-    require('../App/update.js')(collection, app);
-    require('../App/remove.js')(collection, app);
+    require('../App/update.js')(collection, app, ObjectId);
+    require('../App/remove.js')(collection, app, ObjectId);
 
     require('./listen.js')(http);
 
