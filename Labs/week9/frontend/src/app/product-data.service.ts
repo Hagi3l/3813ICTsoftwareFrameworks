@@ -30,7 +30,7 @@ export class ProductDataService {
     return this.http.post<any>('http://localhost:3000/api/remove', { 'productid':productID });
   }
 
-  //TODO - check if valid product id.
-
-
+  checkvalidid(productID) {
+    return this.http.post<any>('http://localhost:3000/api/checkID', { 'productid':productID });
+  }
 }
