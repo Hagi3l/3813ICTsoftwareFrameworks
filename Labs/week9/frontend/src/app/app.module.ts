@@ -11,12 +11,14 @@ import { ListProductsComponent } from './list-products/list-products.component';
 
 import { ProductDataService } from './product-data.service';
 import { AddProductsComponent } from './add-products/add-products.component';
+import { UpdateProductComponent } from './update-product/update-product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListProductsComponent,
-    AddProductsComponent
+    AddProductsComponent,
+    UpdateProductComponent
   ],
   imports: [
     BrowserModule,
