@@ -18,7 +18,7 @@ export class ProductDataService {
   }
 
   getItem(productID) {
-    return this.http.post<any>('http://localhost:3000/api/getList', { 'productid':productID });
+    return this.http.post<any>('http://localhost:3000/api/getItem', { 'productid':productID });
   }
 
   update(product:Products) {

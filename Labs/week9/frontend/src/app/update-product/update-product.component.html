@@ -1,31 +1,31 @@
-<!-- <div class="container">
+<div class="container">
   <h1>Update Product</h1>
-  <form (submit)="updateProduct($event)">
+  <form (submit)="updateProduct($event)" *ngFor="let p of product">
       <div class="form-group">
           <label for="productid">Product ID</label>
-          <input type="number" class="form-control" id="productid" [(ngModel)]="productid" (ngModelChange)="checkValidId($event)" name="productid" placeholder="ID">
-          <div class="alert alert-warning" [@iderrorState]="stateName" id="iderrormsg" role="alert">{{iderrormsg}} {{iderrormsg2}}</div>
+          <input type="number" class="form-control" id="productid" name="productid" placeholder="ID" value="{{p.id}}" disabled>
+          <!-- <div class="alert alert-warning" [@iderrorState]="stateName" id="iderrormsg" role="alert">{{iderrormsg}} {{iderrormsg2}}</div> -->
       </div>
       <div class="form-group">
           <label for="productid">Product Name</label>
-          <input type="text" class="form-control" id="productname" [(ngModel)]="productname" name="productname">
+          <input type="text" class="form-control" id="productname" [(ngModel)]="productname" name="productname" value="{{p.name}}">
       </div>
       <div class="form-group">
           <label for="productid">Description</label>
-          <input type="text" class="form-control" id="productdesc" [(ngModel)]="productdesc" name="productdesc">
+          <input type="text" class="form-control" id="productdesc" [(ngModel)]="productdesc" name="productdesc" value="{{p.desc}}">
       </div>
       <div class="form-group">
           <label for="productid">Prices</label>
-          <input type="number" class="form-control" id="productprice" [(ngModel)]="productprice" name="productprice" placeholder="$">
+          <input type="number" class="form-control" id="productprice" [(ngModel)]="productprice" name="productprice" placeholder="$" value="{{p.price}}">
       </div>
       <div class="form-group">
           <label for="productid">Units</label>
-          <input type="number" class="form-control" id="productunits" [(ngModel)]="productunits" name="productunits">
+          <input type="number" class="form-control" id="productunits" [(ngModel)]="productunits" name="productunits" value="{{p.units}}">
       </div>
       <div class="form-group">
-          <button type="submit" class="btn btn-primary"><i class="fa fa-plus-square"></i>Add New</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-plus-square"></i>Update</button>
       </div>
 
       <div class="alert alert-warning" [@noticeState]="noticeName" role="alert">{{newProductMessage}}</div>
   </form>
-</div> -->
+</div>
