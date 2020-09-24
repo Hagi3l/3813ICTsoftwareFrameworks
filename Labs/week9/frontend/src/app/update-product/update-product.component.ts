@@ -35,8 +35,6 @@ export class UpdateProductComponent implements OnInit {
   productunits:number;
   productid:number;
 
-  // productobjid:string = "";
-  // newprod: Products;
   updateProductMessage = "";
   noticeshow:boolean = false;
 
@@ -63,8 +61,7 @@ export class UpdateProductComponent implements OnInit {
    });
   }
 
-  updateProduct(event) {
-    console.log('submitted a update event');
+  updateProduct() {
 
     let updateProd = {objid:this.id, name:this.productname, description:this.productdesc, price:this.productprice, units:this.productunits};
     console.log(updateProd);
@@ -75,7 +72,9 @@ export class UpdateProductComponent implements OnInit {
       } else {
         this.updateProductMessage = data.err;
       }
-      this.router.navigate(['']);
+      setTimeout( () => {
+        this.router.navigate(['']);
+      }, 2000);
     });
 
   }
