@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Update Product</h1>
-  <form (submit)="updateProduct($event)" *ngFor="let p of product">
+  <form (submit)="updateProduct()" *ngFor="let p of product">
       <div class="form-group">
           <label for="productid">Product ID</label>
           <input type="number" class="form-control" id="productid" name="productid" placeholder="ID" value="{{p.id}}" disabled>
