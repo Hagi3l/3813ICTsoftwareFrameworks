@@ -1,0 +1,31 @@
+<div class="container">
+    <h1>Add New Product</h1>
+    <form (submit)="addNewProduct($event)">
+        <div class="form-group">
+            <label for="productid">Product ID</label>
+            <input type="number" class="form-control" id="productid" [(ngModel)]="productid" (ngModelChange)="checkValidId($event)" name="productid" placeholder="ID">
+            <div class="alert alert-warning" [@iderrorState]="stateName" id="iderrormsg" role="alert">{{iderrormsg}} {{iderrormsg2}}</div>
+        </div>
+        <div class="form-group">
+            <label for="productid">Product Name</label>
+            <input type="text" class="form-control" id="productname" [(ngModel)]="productname" name="productname">
+        </div>
+        <div class="form-group">
+            <label for="productid">Description</label>
+            <input type="text" class="form-control" id="productdesc" [(ngModel)]="productdesc" name="productdesc">
+        </div>
+        <div class="form-group">
+            <label for="productid">Prices</label>
+            <input type="number" class="form-control" id="productprice" [(ngModel)]="productprice" name="productprice" placeholder="$">
+        </div>
+        <div class="form-group">
+            <label for="productid">Units</label>
+            <input type="number" class="form-control" id="productunits" [(ngModel)]="productunits" name="productunits">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-plus-square"></i>Add New</button>
+        </div>
+
+        <div class="alert alert-warning" [@noticeState]="noticeName" role="alert">{{newProductMessage}}</div>
+    </form>
+</div>
