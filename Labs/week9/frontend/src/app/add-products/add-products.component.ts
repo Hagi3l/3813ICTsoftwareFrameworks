@@ -3,6 +3,7 @@ import { ProductDataService } from '../product-data.service';
 import { Products } from '../products';
 import { Title } from '@angular/platform-browser';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Router } from '@angular/router';
 
 
 
@@ -53,7 +54,7 @@ export class AddProductsComponent implements OnInit {
   iderrorshow:boolean = false;
   noticeshow:boolean = false;
 
-  constructor(private proddata:ProductDataService, private titleService: Title) { }
+  constructor(private proddata:ProductDataService, private titleService: Title, private router: Router) { }
 
   ngOnInit(): void {
     this.titleService.setTitle( 'Add Product' );
@@ -77,6 +78,9 @@ export class AddProductsComponent implements OnInit {
         this.noticeshow = true;
         if (data.err == null) {
           this.newProductMessage = data.num + " new product (" + this.productname + ") was added";
+          setTimeout( () => {
+            this.router.navigate(['']);
+          }, 2000);
         } else {
           this.newProductMessage = data.err;
         }
