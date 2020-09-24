@@ -1,9 +1,12 @@
-module.exports = (usersCollection, groupsCollection, channelsCollection) => {
+module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectID) => {
 
     // SEED User
 
+    const userID = ObjectID;
+
     const user =
     {
+        _id: userID,
         username: "super",
         email: "super@privetchat.com",
         password: "super-pwd",
@@ -19,19 +22,35 @@ module.exports = (usersCollection, groupsCollection, channelsCollection) => {
     [
         {
             group_name: "Elite",
-            group_users: []
+            group_users: [
+                {
+                    users_id: userID,
+                }
+            ]
         },
         {
             group_name: "Fun",
-            group_users: []
+            group_users: [
+                {
+                    users_id: userID,
+                }
+            ]
         },
         {
             group_name: "Aussie",
-            group_users: []
+            group_users: [
+                {
+                    users_id: userID,
+                }
+            ]
         },
         {
             group_name: "Venezia",
-            group_users: []
+            group_users: [
+                {
+                    users_id: userID,
+                }
+            ]
         }
     ];
     //SEED Channels
@@ -41,7 +60,11 @@ module.exports = (usersCollection, groupsCollection, channelsCollection) => {
         {
             channel_name: "private",
             group_id: null,
-            channel_users: [],
+            channel_users: [
+                {
+                    users_id: userID,
+                }
+            ],
             active_users: [],
             chat_history: []
         },
