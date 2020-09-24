@@ -4,19 +4,17 @@ module.exports = (usersCollection, app) => {
 
     app.post('/api/login-auth', (req, res) => {
 
-        console.log(req.body);
-
-        usersCollection.find({ username: req.body.username }).toArray( (err, result) => {
+        usersCollection.find({ username: req.body.username }).toArray( (err, data) => {
             if(err) { return res.sendStatus(400); }
-            console.log(result);
-            bcrypt.compare(req.body.password, result[0].password, (err, result) => {
+            if(data.length == 0) {
+                return res.send({status: 400, data: "Username or Password not found"});
+            }
+            bcrypt.compare(req.body.password, data[0].password, (err, result) => {
                 if(err) { return res.sendStatus(400); }
                 if (result === true) {
-                    console.log("Login Approved!");
-                    return res.sendStatus(200);
+                    return res.send({status: 200, data: { username: data[0].username, email: data[0].email, role: data[0].role }});
                 } else {
-                    console.log("Invalid username or password");
-                    return res.send({status: 400, message: "Username or Password not found"});
+                    return res.send({status: 400, data: "Username or Password not found"});
                 }
             });
         });
@@ -24,5 +22,4 @@ module.exports = (usersCollection, app) => {
 }
 
   //TODO:
-    // check for user + pass in the collection
     // set local session for persistance
