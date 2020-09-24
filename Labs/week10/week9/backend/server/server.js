@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 const url = 'mongodb://localhost:27017';
 MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology: true}, function(err, client) {
 
-    if(err) {return console.log(err)}
+    if(err) {return console.log(err);}
 
     const dbName = 'mydb';
     const db = client.db(dbName);
