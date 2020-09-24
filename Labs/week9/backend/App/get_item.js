@@ -7,8 +7,6 @@ module.exports = (collection, app, ObjectId) => {
 
         let objectid = ObjectId(productID);
 
-        console.log(objectid);
-
         collection.find({_id:objectid}).toArray( (err, data) => {
             if(err) { return res.sendStatus(400) }
             res.send(data);  

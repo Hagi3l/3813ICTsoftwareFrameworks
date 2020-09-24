@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ProductDataService } from '../product-data.service';
 import { Products } from '../products';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-product',
@@ -27,7 +27,7 @@ export class UpdateProductComponent implements OnInit {
 
   id: number;
   private sub: any;
-  product:Products[] = [];
+  product:[] = [];
 
   productname:string;
   productdesc:string;
@@ -37,10 +37,14 @@ export class UpdateProductComponent implements OnInit {
 
   // productobjid:string = "";
   // newprod: Products;
-  // newProductMessage = "";
+  updateProductMessage = "";
   noticeshow:boolean = false;
 
-  constructor(private route: ActivatedRoute, private proddata:ProductDataService) { }
+  constructor(private route: ActivatedRoute, private proddata:ProductDataService, private router:Router) { }
+
+  get noticeName() {
+    return this.noticeshow ? 'show':'hide';
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -61,6 +65,19 @@ export class UpdateProductComponent implements OnInit {
 
   updateProduct(event) {
     console.log('submitted a update event');
+
+    let updateProd = {objid:this.id, name:this.productname, description:this.productdesc, price:this.productprice, units:this.productunits};
+    console.log(updateProd);
+    this.proddata.update(updateProd).subscribe( (data) => {
+      this.noticeshow = true;
+      if (data.err == null) {
+        this.updateProductMessage = this.productname + " was updated";
+      } else {
+        this.updateProductMessage = data.err;
+      }
+      this.router.navigate(['']);
+    });
+
   }
 
 
