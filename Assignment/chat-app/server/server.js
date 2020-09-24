@@ -33,16 +33,26 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
     const groupsCollection = db.collection('groups');
     const channelsCollection = db.collection('channels');
 
-
-    require('./router/seed')(usersCollection, groupsCollection, channelsCollection, ObjectID);
+    // SEED
+    // require('./router/seed')(usersCollection, groupsCollection, channelsCollection, ObjectID);
 
     // User - REST
-    require('./router/users/add-new-user')(usersCollection, app);
-    require('./router/users/get-users')(usersCollection, app);
+    require('./router/users/add-new-user')(usersCollection, app); // Add user
+    require('./router/users/get-users')(usersCollection, app); // Get all users
+    // get user
+    // update user
+    // remove user
 
+    // Group - REST
+    require('./router/groups/get-groups')(groupsCollection, app); // Get all users
+    // add groups
+    // update groups
+    // delete groups
 
-
-    app.post('/api/groups', require('./router/groups.js'));
-    app.post('/api/channels', require('./router/channels.js'));
+    // Channels - REST
+    // get channels
+    // add channels
+    // update channels
+    // delete channels
 
 });
