@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { fromEventPattern } from 'rxjs';
 import { ProductDataService } from '../product-data.service';
 import { Products } from '../products';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { NgIf } from '@angular/common';
 
 
 
