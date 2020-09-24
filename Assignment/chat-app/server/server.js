@@ -5,7 +5,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
-const ObjectId = require('mongodb').ObjectID;
+const ObjectID = require('mongodb').ObjectID;
 
 const sockets = require('./socket.js');
 const server = require('./listen.js');
@@ -33,10 +33,13 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
     const groupsCollection = db.collection('groups');
     const channelsCollection = db.collection('channels');
 
-    let seed = require('./router/seed');
+
+    require('./router/seed')(usersCollection, groupsCollection, channelsCollection, ObjectID);
 
     // User - REST
-    require('./router/add-new-user')(usersCollection, app);
+    require('./router/users/add-new-user')(usersCollection, app);
+    require('./router/users/get-users')(usersCollection, app);
+
 
 
     app.post('/api/groups', require('./router/groups.js'));
