@@ -16,10 +16,7 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
     const dbName = 'mydb';
     const db = client.db(dbName);
     
-    // db.collection('products').drop();
     const collection = db.collection('products');
-
-    // db.products.drop();
 
     require('../App/add.js')(collection, app);
     require('../App/read.js')(collection, app);
