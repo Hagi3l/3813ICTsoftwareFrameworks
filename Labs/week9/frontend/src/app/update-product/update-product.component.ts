@@ -4,6 +4,7 @@ import { ProductDataService } from '../product-data.service';
 import { Products } from '../products';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NgIf } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-product',
@@ -14,10 +15,19 @@ export class UpdateProductComponent implements OnInit {
 
   // @Input() routerLink: number;
 
-  constructor() { }
+  id: number;
+  private sub: any;
 
-  ngOnInit(): void {
-    // console.log(this.routerLink);
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      console.log(params);
+      this.id = +params['id'];
+
+
+   });
+   console.log(this.id);
   }
 
 }
