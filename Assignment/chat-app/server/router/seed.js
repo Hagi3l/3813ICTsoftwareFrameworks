@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectID) => {
 
     // Dropping collections before seeding
@@ -7,78 +9,73 @@ module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectI
 
     // SEED User
 
-    const userID = ObjectID;
+    let userID;
+    let userPW;
 
-    const user =
-    {
-        _id: userID,
-        username: "super",
-        email: "super@privetchat.com",
-        password: "super-pwd",
-        role: "super-admin"
-    };
+    bcrypt.hash("super-pwd", 10, (err, hash) => {
+        userPW = hash;
 
-    usersCollection.insertOne(user);
-
-
-    // SEED Groups
-
-    const groups =
-    [
-        {
-            group_name: "Elite",
-            group_users: [
-                {
-                    users_id: userID,
-                }
-            ]
-        },
-        {
-            group_name: "Fun",
-            group_users: [
-                {
-                    users_id: userID,
-                }
-            ]
-        },
-        {
-            group_name: "Aussie",
-            group_users: [
-                {
-                    users_id: userID,
-                }
-            ]
-        },
-        {
-            group_name: "Venezia",
-            group_users: [
-                {
-                    users_id: userID,
-                }
-            ]
-        }
-    ];
-
-    groupsCollection.insertMany(groups);
-
-    //SEED Channels
-
-    const channels =
-    {
-        channel_name: "private",
-        group_id: null,
-        channel_users: [
+        usersCollection.insertOne(
             {
-                users_id: userID,
-            }
-        ],
-        active_users: [],
-        chat_history: []
-    };
+                "_id": ObjectID,
+                "username": "super",
+                "email": "super@privetchat.com",
+                "password": userPW,
+                "role": "super-admin"
+            }, (err, data) => {
+            // console.log(data);
+            // userID = ObjectID(data.insertedId);
+            usersCollection.find({}).toArray( (err, data) => {
+                userID = data[0]._id.str;
 
-    channelsCollection.insertOne(channels);
-
-
+                groupsCollection.insertMany(
+                    [
+                        {
+                            "group_name": "Elite",
+                            "group_users": [ userID ]
+                        },
+                        {
+                            "group_name": "Fun",
+                            "group_users": [
+                                {
+                                    "users_id": userID,
+                                }
+                            ]
+                        },
+                        {
+                            "group_name": "Aussie",
+                            "group_users": [
+                                {
+                                    "users_id": userID,
+                                }
+                            ]
+                        },
+                        {
+                            "group_name": "Venezia",
+                            "group_users": [
+                                {
+                                    "users_id": userID,
+                                }
+                            ]
+                        }
+                    ]
+                );
+                channelsCollection.insertOne(
+                    {
+                        "channel_name": "private",
+                        "group_id": null,
+                        "channel_users": [
+                            {
+                                "users_id": userID,
+                            }
+                        ],
+                        "active_users": [],
+                        "chat_history": []
+                    }
+                );
+            });
+        });
+    });
 };
 
 
