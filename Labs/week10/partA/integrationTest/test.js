@@ -1,5 +1,8 @@
 var assert = require('assert');//link in assertion library
 
+// To run integration test:
+// npm run-script test
+
 describe('Tests for function one', () => {
     describe('Test Case 1 #fnOne()',() => {
         it('should return -1 when the value is not present', () => {

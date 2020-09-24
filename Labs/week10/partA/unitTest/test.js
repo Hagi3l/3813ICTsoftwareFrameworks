@@ -1,15 +1,19 @@
-var assert = require('assert');//link in assertion library
+var assert = require('assert');
+var linearPoint = require('../linearPoint');
 
-describe('Tests for function one', () => {
-    describe('Test Case 1 #fnOne()',() => {
-        it('should return -1 when the value is not present', () => {
-        assert.strictEqual([1,2,3].indexOf(4), -1);
-    });
-});
+// To run unitTest:
+// npm run-script unitTest
 
-describe('Test Case #fnOne()', () => {
-    it('should return 3 as the value is present', () => {
-        assert.strictEqual([1,2,3,4,5].indexOf(4), 3);
+describe('Tests for linearPoint', () => {
+    describe('Test Case 1 #linearPoint()',() => {
+        it('Should return 6 from input 2, 1, 4', () => {
+            assert.strictEqual(linearPoint(2, 1, 4), 6);
+        });
+        it('Should return 4 from input 2, 0, 4', () => {
+            assert.strictEqual(linearPoint(2, 0, 4), 4);
+        });
+        it('Should return 2 from input 2, -1, 4', () => {
+            assert.strictEqual(linearPoint(2, -1, 4), 2);
         });
     });
 });
