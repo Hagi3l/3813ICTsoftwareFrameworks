@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductDataService } from '../product-data.service';
-import { Products } from '../products';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-update-product',
@@ -38,18 +38,17 @@ export class UpdateProductComponent implements OnInit {
   updateProductMessage = "";
   noticeshow:boolean = false;
 
-  constructor(private route: ActivatedRoute, private proddata:ProductDataService, private router:Router) { }
+  constructor(private route: ActivatedRoute, private proddata:ProductDataService, private router:Router, private titleService: Title) { }
 
   get noticeName() {
     return this.noticeshow ? 'show':'hide';
   }
 
   ngOnInit() {
+    this.titleService.setTitle( 'Update Product' );
     this.sub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-
-      console.log(this.id);
-      this.proddata.getItem(this.id).subscribe( (data) => {
+        this.id = params['id'];
+        this.proddata.getItem(this.id).subscribe( (data) => {
         this.product = data;
         this.productname = data[0].name;
         this.productdesc = data[0].desc;
@@ -62,7 +61,6 @@ export class UpdateProductComponent implements OnInit {
   }
 
   updateProduct() {
-
     let updateProd = {objid:this.id, name:this.productname, description:this.productdesc, price:this.productprice, units:this.productunits};
     console.log(updateProd);
     this.proddata.update(updateProd).subscribe( (data) => {
@@ -76,8 +74,5 @@ export class UpdateProductComponent implements OnInit {
         this.router.navigate(['']);
       }, 2000);
     });
-
   }
-
-
 }

@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +29,10 @@ import { UpdateProductComponent } from './update-product/update-product.componen
     FormsModule,
     BrowserAnimationsModule
   ],
-  providers: [ProductDataService],
+  providers: [
+    ProductDataService,
+    Title
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

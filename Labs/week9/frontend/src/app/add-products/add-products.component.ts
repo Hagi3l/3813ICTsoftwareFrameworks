@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductDataService } from '../product-data.service';
 import { Products } from '../products';
+import { Title } from '@angular/platform-browser';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 
@@ -52,9 +53,10 @@ export class AddProductsComponent implements OnInit {
   iderrorshow:boolean = false;
   noticeshow:boolean = false;
 
-  constructor(private proddata:ProductDataService) { }
+  constructor(private proddata:ProductDataService, private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle( 'Add Product' );
   }
 
   get stateName() {
@@ -72,7 +74,6 @@ export class AddProductsComponent implements OnInit {
     } else {
       this.newprod = new Products(this.productid, this.productname, this.productdesc, this.productprice, this.productunits);
       this.proddata.add(this.newprod).subscribe( (data) => {
-        console.log(data);
         this.noticeshow = true;
         if (data.err == null) {
           this.newProductMessage = data.num + " new product (" + this.productname + ") was added";
