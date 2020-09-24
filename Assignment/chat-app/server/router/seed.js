@@ -1,5 +1,10 @@
 module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectID) => {
 
+    // Dropping collections before seeding
+    usersCollection.drop();
+    groupsCollection.drop();
+    channelsCollection.drop();
+
     // SEED User
 
     const userID = ObjectID;
@@ -53,22 +58,25 @@ module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectI
             ]
         }
     ];
+
+    groupsCollection.insertMany(groups);
+
     //SEED Channels
 
     const channels =
-    [
-        {
-            channel_name: "private",
-            group_id: null,
-            channel_users: [
-                {
-                    users_id: userID,
-                }
-            ],
-            active_users: [],
-            chat_history: []
-        },
-    ];
+    {
+        channel_name: "private",
+        group_id: null,
+        channel_users: [
+            {
+                users_id: userID,
+            }
+        ],
+        active_users: [],
+        chat_history: []
+    };
+
+    channelsCollection.insertOne(channels);
 
 
 };
