@@ -2,9 +2,15 @@ module.exports = function(usersCollection, app, ObjectId) {
 
     app.post('/api/delete-user', (req, res) => {
 
-        usersCollection.deleteOne({_id: req.body.id}, (err, data) => {
+        let objectid = ObjectId(req.body.id);
+
+        usersCollection.deleteOne({_id: objectid}, (err, result) => {
             if(err) { return res.sendStatus(400); }
-            return res.status(200).send(data);
+            if (result.result.n === 1) {
+                return res.sendStatus(200);
+            } else {
+                return res.status(400).send({ code: 11, message: "Cannot delete user"});
+            }
         });
     });
 };
