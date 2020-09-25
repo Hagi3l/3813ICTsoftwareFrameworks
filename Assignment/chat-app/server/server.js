@@ -40,7 +40,7 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
     require('./router/users/add-new-user')(usersCollection, app); // Add user
     require('./router/users/get-users')(usersCollection, app); // Get all users
     require('./router/users/update-user')(usersCollection, app, ObjectID); // update user
-    require('./router/users/remove-user')(usersCollection, app, ObjectID); // remove user
+    require('./router/users/delete-user')(usersCollection, app, ObjectID); // remove user
 
     // Login
     require('./router/auth/login-auth')(usersCollection, app); // Check for valid user then returns user object
