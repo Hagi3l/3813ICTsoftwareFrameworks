@@ -25,8 +25,7 @@ module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectI
                 "password": userPW,
                 "role": "super-admin"
             }, () => {
-            // console.log(data);
-            // userID = ObjectID(data.insertedId);
+
             usersCollection.find({}).toArray( (err, data) => {
                 userID = data[0]._id;
 
