@@ -1,6 +1,6 @@
 module.exports = function(usersCollection, app, ObjectId) {
 
-    app.get('/api/remove-user', (req, res) => {
+    app.post('/api/remove-user', (req, res) => {
 
         let objid = ObjectId(req.body.id);
 
