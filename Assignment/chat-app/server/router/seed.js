@@ -7,6 +7,8 @@ module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectI
     groupsCollection.drop();
     channelsCollection.drop();
 
+    usersCollection.createIndex( { "username": 1 }, { unique: true } );
+
     // SEED User
 
     let userID;
