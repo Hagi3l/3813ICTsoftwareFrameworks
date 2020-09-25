@@ -46,15 +46,17 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
     require('./router/auth/login-auth')(usersCollection, app); // Check for valid user then returns user object
 
     // Group - REST
-    require('./router/groups/get-groups')(groupsCollection, app); // Get all users
-    // add groups
+    require('./router/groups/get-groups')(groupsCollection, app); // Get all groups
+    require('./router/groups/add-group')(groupsCollection, app, ObjectID); // Add new group
     // update groups
     // delete groups
+    // add user to group
 
     // Channels - REST
     // get channels
     // add channels
     // update channels
     // delete channels
+    // add user to channel
 
 });
