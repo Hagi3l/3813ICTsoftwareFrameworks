@@ -5,8 +5,7 @@ module.exports = function(usersCollection, app) {
         console.log(req.body);
         usersCollection.find({}).toArray( (err, result) => {
             if(err) { return res.sendStatus(400); }
-            console.log(result);
-            return res.send(result);
+            return res.status(200).send({ username: data[0].username, email: data[0].email, role: data[0].role });
         });
     });
 };
