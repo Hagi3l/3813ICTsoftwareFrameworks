@@ -2,7 +2,7 @@ module.exports = (collection, app) => {
 
     app.post('/api/add', (req, res) => {
 
-        if(!req.body) {return res.sendStatus(400)}
+        if(!req.body) {return res.sendStatus(400);}
 
         product = req.body;
 

@@ -1,7 +1,7 @@
 module.exports = (collection, app, ObjectId) => {
 
     app.post('/api/remove', (req, res) => {
-        if(!req.body) { return res.sendStatus(400) }
+        if(!req.body) {return res.sendStatus(400);}
 
         productID = req.body.productid;
 

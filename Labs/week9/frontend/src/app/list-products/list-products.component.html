@@ -12,7 +12,7 @@
         <tr class="pt-5" *ngFor="let product of products">
             <td>{{product.id}}</td>
             <td>{{product.name}}</td>
-            <td>{{product.description}}</td>
+            <td>{{product.desc}}</td>
             <td>{{product.price}}</td>
             <td>{{product.units}}</td>
             <td><span class="btn btn-primary" [routerLink]="['update/', product._id]"><i class="fa fa-edit"></i>Edit</span>
