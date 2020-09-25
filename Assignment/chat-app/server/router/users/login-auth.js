@@ -4,22 +4,22 @@ module.exports = (usersCollection, app) => {
 
     app.post('/api/login-auth', (req, res) => {
 
-        usersCollection.find({ username: req.body.username }).toArray( (err, data) => {
+        usersCollection.findOne({ username: req.body.username }, (err, data)  => {
             if(err) { return res.sendStatus(400); }
-            if(data.length == 0) {
-                return res.send({status: 400, data: "Username or Password not found"});
+            if(data === null) {
+                return res.status(400).send({message: "User not found"});
             }
-            bcrypt.compare(req.body.password, data[0].password, (err, result) => {
+            bcrypt.compare(req.body.password, data.password, (err, result) => {
                 if(err) { return res.sendStatus(400); }
                 if (result === true) {
-                    return res.send({status: 200, data: { username: data[0].username, email: data[0].email, role: data[0].role }});
+                    return res.status(200).send({ username: data.username, email: data.email, role: data.role });
                 } else {
-                    return res.send({status: 400, data: "Username or Password not found"});
+                    return res.status(400).send({ message: "Password does not match"});
                 }
             });
         });
     });
-}
+};
 
   //TODO:
     // set local session for persistance
