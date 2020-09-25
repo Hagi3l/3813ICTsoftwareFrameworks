@@ -1,5 +1,5 @@
 let assert = require('assert');
-let app = require('../server.js');
+// let app = require('../server.js');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
@@ -14,7 +14,7 @@ describe('Tests for Server endpoints (API Calls)', () => {
 
     describe('Add Product Route (POST)', () => {
         it('it should Insert(POST) a product', (done) => {
-            chai.request(app)
+            chai.request("http://localhost:3000")
                 .post('/add')
                 .type('form')
                 .send({"id": 1337, "name": "testName", "description": "testDesc", "price": 1337, "units": 1337 })
@@ -31,8 +31,8 @@ describe('Tests for Server endpoints (API Calls)', () => {
 
     describe('Read Products Route (GET)', () => {
         it('it should GET all products', (done) => {
-            chai.request(app)
-                .get('/read')
+            chai.request("http://localhost:3000/api")
+                .get("/getList")
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
