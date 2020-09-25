@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectID) => {
+module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectId) => {
 
     // Dropping collections before seeding
     usersCollection.drop();
@@ -19,22 +19,26 @@ module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectI
 
         usersCollection.insertOne(
             {
-                "_id": ObjectID,
+                "_id": ObjectId,
                 "username": "super",
                 "email": "super@privetchat.com",
                 "password": userPW,
                 "role": "super-admin"
-            }, (err, data) => {
+            }, () => {
             // console.log(data);
             // userID = ObjectID(data.insertedId);
             usersCollection.find({}).toArray( (err, data) => {
-                userID = data[0]._id.str;
+                userID = data[0]._id;
 
                 groupsCollection.insertMany(
                     [
                         {
                             "group_name": "Elite",
-                            "group_users": [ userID ]
+                            "group_users": [
+                                {
+                                    "users_id": userID,
+                                }
+                            ]
                         },
                         {
                             "group_name": "Fun",
