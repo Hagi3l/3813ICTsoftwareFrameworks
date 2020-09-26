@@ -1,17 +1,19 @@
-module.exports = function(groupsCollection, app, ObjectId) {
+module.exports = function(usersCollection, groupsCollection, app, ObjectId) {
 
     app.post('/api/add-new-group', (req, res) => {
 
         let objectid = ObjectId(req.body.id);
 
-        groupsCollection.insertOne({group_name: req.body.group_name, group_admins: ["super-admin", "group-admin", objectid],  group_users: [] }, (err, result) => {
-            if(err) {
-                if (err.code == 11000) {
-                    return res.status(400).send({ code: 10, message: "Username taken"});
-                }
-                return res.sendStatus(400);
+        usersCollection.findOne({_id: objectid}, (err, data) => {
+            if (data.role == "super-admin" || data.role == "group-admin") {
+                console.log('added by a super-admin or group-admin');
+                groupsCollection.insertOne({group_name: req.body.group_name, group_admins: ["super-admin", "group-admin"],  group_users: [] }, (err, result) => {
+                    if(err) {return res.sendStatus(400);}
+                    return res.sendStatus(200);
+                });
+            } else {
+                return res.status(400).send({ code: 12, message: "Unauthorised Operation"});
             }
-            return res.sendStatus(200);
         });
     });
 };
