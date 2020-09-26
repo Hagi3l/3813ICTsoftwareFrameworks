@@ -4,7 +4,6 @@ module.exports = function(groupsCollection, app) {
 
         groupsCollection.find({}).toArray( (err, result) => {
             if(err) { return res.sendStatus(400); }
-            console.log(result);
             return res.send(result);
         });
     });
