@@ -48,7 +48,7 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
     // Group - REST
     require('./router/groups/get-groups')(groupsCollection, app); // Get all groups
     require('./router/groups/add-group')(usersCollection, groupsCollection, app, ObjectID); // Add new group
-    // update groups
+    require('./router/groups/update-group')(usersCollection, groupsCollection, app, ObjectID); // Update group
     require('./router/groups/delete-group')(groupsCollection, app, ObjectID); // delete groups
     // add user to group
     // add admin to group
