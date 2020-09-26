@@ -34,21 +34,25 @@ module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectI
                         {
                             "group_name": "Elite",
                             "group_admins": ["super-admin", "group-admin"],
+                            "group_assistants": [],
                             "group_users": []
                         },
                         {
                             "group_name": "Fun",
                             "group_admins": ["super-admin", "group-admin"],
+                            "group_assistants": [],
                             "group_users": []
                         },
                         {
                             "group_name": "Aussie",
                             "group_admins": ["super-admin", "group-admin"],
+                            "group_assistants": [],
                             "group_users": []
                         },
                         {
                             "group_name": "Venezia",
                             "group_admins": ["super-admin", "group-admin"],
+                            "group_assistants": [],
                             "group_users": []
                         }
                     ]
