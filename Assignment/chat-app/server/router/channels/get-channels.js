@@ -1,9 +1,8 @@
-module.exports = function(channelsCollection, app) {
+module.exports = function(channelsCollection, app, ObjectId) {
 
     app.get('/api/get-channels/:data', (req, res) => {
-        const data = req.params.data;
-        console.log(data);
-        channelsCollection.find({}).toArray( (err, result) => {
+        let objectid = ObjectId(req.params.data);
+        channelsCollection.find({group_id: objectid}).toArray( (err, result) => {
             if(err) { return res.sendStatus(400); }
             return res.send(result);
         });

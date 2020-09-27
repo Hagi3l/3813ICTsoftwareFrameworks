@@ -33,7 +33,6 @@ export class AdminPageComponent implements OnInit {
 
         this.myForm = this.formBuilder.group({
             group_id: this.groups,
-
         });
 
         this.onChanges();
@@ -43,6 +42,7 @@ export class AdminPageComponent implements OnInit {
         this.myForm.valueChanges.subscribe(val => {
             this.groupChannelService.fetchChannelData(val.group_id).subscribe((data) => {
                 this.channels = data;
+                console.log(data);
             })
         });
     }
