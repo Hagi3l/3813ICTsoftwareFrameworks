@@ -22,6 +22,9 @@ export class LoginComponent implements OnInit {
     loginDetails = null;
 
     ngOnInit() {
+        if ("active-user" in localStorage) {
+            this.router.navigateByUrl('');
+        }
         this.loginDetails = {username: this.username, password: this.password};
     }
 
