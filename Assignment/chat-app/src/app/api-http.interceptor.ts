@@ -14,10 +14,12 @@ export class ApiHttpInterceptor implements HttpInterceptor {
   }
 
   public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    request = request.clone({
-      url: "http://localhost:3000" + request.url,
-      setHeaders: { 'Content-Type': 'application/json', observe: 'body'}
-    });
+    if (request.url.startsWith('/api')) {
+      request = request.clone({
+        url: "http://localhost:3000" + request.url,
+        setHeaders: { 'Content-Type': 'application/json', observe: 'body'}
+      });
+    }
 
     return next.handle(request);
   }
