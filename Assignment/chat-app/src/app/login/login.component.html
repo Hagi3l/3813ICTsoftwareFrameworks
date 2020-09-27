@@ -1,15 +1,12 @@
-<head>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-
-<div class="wrapper fadeInDown">
-  <h1 class="header">Login</h1>
-  <div id="formContent">
-    <!-- Login Form -->
-    <form>
-      <input type="text" [(ngModel)]="loginDetails.username" id="login" class="fadeIn second" name="login" placeholder="Username">
-      <input type="password" [(ngModel)]="loginDetails.password" id="password" class="fadeIn third" name="login" placeholder="Password">
-      <input (click)="loginfunc()" type="submit" class="fadeIn fourth" value="Log In">
-    </form>
-  </div>
-</div>
+<form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Username</label>
+      <input type="text" [(ngModel)]="loginDetails.username" class="form-control" aria-describedby="username help" placeholder="Enter username" name="username">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" [(ngModel)]="loginDetails.password" class="form-control" placeholder="Password" name="password">
+    </div>
+    <button (click)="login()" class="btn btn-primary">Login</button>
+</form>
