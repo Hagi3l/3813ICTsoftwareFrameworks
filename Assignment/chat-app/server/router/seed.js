@@ -61,11 +61,7 @@ module.exports = (usersCollection, groupsCollection, channelsCollection, ObjectI
                     {
                         "channel_name": "private",
                         "group_id": null,
-                        "channel_users": [
-                            {
-                                "users_id": userID,
-                            }
-                        ],
+                        "channel_users": [],
                         "active_users": [],
                         "chat_history": []
                     }
