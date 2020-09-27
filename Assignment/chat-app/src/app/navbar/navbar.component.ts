@@ -9,23 +9,23 @@ import { UserDataService } from '../services/user-data.service';
 })
 export class NavbarComponent implements OnInit {
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private userData: UserDataService) { }
 
     active_user:boolean = false;
 
     ngOnInit() {
-        if ("active-user" in localStorage) {
+        if (this.userData.active_user) {
             this.active_user = true;
-
         }
     }
 
     logout() {
         if (this.active_user) {
             localStorage.clear();
-            this.active_user = false;
+            this.userData.active_user = false;
+
             this.router.navigateByUrl('');
-            console.log("removed active user storage");
+            window.location.reload();
         }
     }
 }

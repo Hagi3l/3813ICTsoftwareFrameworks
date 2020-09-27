@@ -11,10 +11,12 @@ export class UserDataService {
     constructor() { }
 
     get active_user() {
-        let storage = JSON.parse(localStorage.getItem("active-user"));
-        this._user_info = storage.user;
-        this._active_user = storage.session;
-        return this._active_user;
+        if(localStorage.getItem("active-user")) {
+            let storage = JSON.parse(localStorage.getItem("active-user"));
+            this._user_info = storage.user;
+            this._active_user = storage.session;
+            return this._active_user;
+        }
     }
     set active_user(status) {
         this._active_user = status

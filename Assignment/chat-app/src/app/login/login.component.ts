@@ -19,11 +19,11 @@ export class LoginComponent implements OnInit {
 
     username: string;
     password: string;
-    // active_user: boolean = false;
+    active_user: boolean = false;
     loginDetails = null;
 
     ngOnInit() {
-        if ("active-user" in localStorage) {
+        if (this.userData.active_user) {
             this.router.navigateByUrl('');
         }
         this.loginDetails = {username: this.username, password: this.password};
@@ -41,8 +41,7 @@ export class LoginComponent implements OnInit {
                         "session": true
                     }
                 ));
-                // localStorage.setItem('session', JSON.stringify(true));
-                this.router.navigateByUrl('account');
+                location.reload();
             }
         });
     }
