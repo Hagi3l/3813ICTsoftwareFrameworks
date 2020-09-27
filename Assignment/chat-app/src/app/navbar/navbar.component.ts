@@ -18,4 +18,13 @@ export class NavbarComponent implements OnInit {
         this.active_user = true;
     }
   }
+
+  logout() {
+      if (this.active_user) {
+        localStorage.clear();
+        this.active_user = false;
+        this.router.navigateByUrl('');
+        console.log("removed active user storage");
+      }
+  }
 }

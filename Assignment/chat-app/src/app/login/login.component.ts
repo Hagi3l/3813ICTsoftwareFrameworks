@@ -2,6 +2,7 @@ import { Component,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', observe: 'body'}) };
 const BACKEND_URL = 'http://localhost:3000';
 
@@ -17,15 +18,16 @@ export class LoginComponent implements OnInit {
 
     username: string;
     password: string;
-    session: boolean;
-
+    active_user: boolean = false;
     loginDetails = null;
 
     ngOnInit() {
+        console.log(this.active_user);
         if ("active-user" in localStorage) {
             this.router.navigateByUrl('');
         }
         this.loginDetails = {username: this.username, password: this.password};
+
     }
 
     login() {

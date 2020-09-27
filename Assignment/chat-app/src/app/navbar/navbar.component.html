@@ -6,20 +6,20 @@
     <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
         <ul class="navbar-nav mx-auto text-md-center text-left">
             <li class="nav-item m-1">
-                <a class="nav-link" routerLink="/">Home</a>
+                <a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
             </li>
             <li class="nav-item m-1">
-                <a class="nav-link" routerLink="/chat">Chat</a>
+                <a class="nav-link" routerLink="/chat" routerLinkActive="active">Chat</a>
             </li>
             <li class="nav-item my-auto m-1">
                 <a class="nav-link navbar-brand mx-0 d-none d-md-inline" routerLink="/"><strong>Privet Chat</strong></a>
             </li>
             <li class="nav-item m-1">
-                <a class="nav-link" routerLink="/account" *ngIf="active_user">Account</a>
+                <a class="nav-link" routerLink="/account" *ngIf="active_user" routerLinkActive="active">Account</a>
             </li>
         </ul>
         <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
-            <li class="nav-item" *ngIf="active_user else login"><a class="nav-link" routerLink="">Logout</a></li>
+            <li class="nav-item" *ngIf="active_user else login"><button class="btn btn-light" (click)="logout()">Logout</button></li>
             <ng-template #login>
                 <li class="nav-item"><a class="nav-link" routerLink="/login">Login</a></li>
             </ng-template>
