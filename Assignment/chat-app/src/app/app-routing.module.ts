@@ -5,6 +5,9 @@ import { ChatComponent } from './chat/chat.component'
 import { LoginComponent } from './login/login.component';
 import { AccountComponent } from './account/account.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { ApiHttpInterceptor } from './api-http.interceptor';
 
 const routes: Routes = [
 
@@ -17,6 +20,14 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiHttpInterceptor,
+      multi: true
+      // so I muissed multi and it woul dhave worked
+    }
+  ]
 })
 export class AppRoutingModule { }
