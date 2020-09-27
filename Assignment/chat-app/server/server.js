@@ -52,7 +52,7 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
     require('./router/groups/delete-group')(groupsCollection, app, ObjectID); // delete groups
 
     // Channels - REST
-    // get channels
+    require('./router/channels/get-channels')(channelsCollection, app); // get channels
     // add channels
     // update channels
     // delete channels
