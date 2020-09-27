@@ -26,7 +26,6 @@ const routes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: ApiHttpInterceptor,
       multi: true
-      // so I muissed multi and it woul dhave worked
     }
   ]
 })
