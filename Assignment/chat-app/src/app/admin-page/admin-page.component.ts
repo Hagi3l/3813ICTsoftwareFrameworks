@@ -16,7 +16,8 @@ export class AdminPageComponent implements OnInit {
     private active_user: boolean;
     public groups: Array<any>;
     public channels: Array<any>;
-    public myForm;
+    public groupForm;
+    public channelForm;
 
 
     public ngOnInit(): void {
@@ -31,19 +32,26 @@ export class AdminPageComponent implements OnInit {
             this.groups = data;
         });
 
-        this.myForm = this.formBuilder.group({
+        this.groupForm = this.formBuilder.group({
             group_id: this.groups,
+        });
+
+        this.channelForm = this.formBuilder.group({
+           channel_id: this.channels,
         });
 
         this.onChanges();
     }
 
     onChanges(): void {
-        this.myForm.valueChanges.subscribe(val => {
+        this.groupForm.valueChanges.subscribe(val => {
             this.groupChannelService.fetchChannelData(val.group_id).subscribe((data) => {
                 this.channels = data;
                 console.log(data);
             })
+        });
+        this.channelForm.valueChanges.subscribe(val => {
+            console.log(val);
         });
     }
 }

@@ -1,10 +1,40 @@
 <div class="container">
     <h1>Admin Page</h1>
-    <form [formGroup]="myForm">
+    <form [formGroup]="groupForm">
         <label for="groups">Group</label>
-        <input type="text" >
         <select formControlName="group_id">
             <option *ngFor="let group of groups" [ngValue]="group._id">{{ group.group_name }}</option>
         </select>
     </form>
+    <form [formGroup]="channelForm">
+        <label for="channels">Channels</label>
+        <select formControlName="channel_id">
+            <option *ngFor="let channel of channels" [ngValue]="channel._id">{{ channel.channel_name }}</option>
+        </select>
+        <table class="table">
+            <tr>
+                <th>Channel ID</th>
+                <th>Name</th>
+                <th>Group ID</th>
+                <th>Channel Users</th>
+                <th>Channel Active Users</th>
+                <th>Actions</th>
+            </tr>
+            <tr class="pt-5" *ngFor="let channel of channels">
+                <td>{{channel._id}}</td>
+                <td>{{channel.channel_name}}</td>
+                <td>{{channel.group_id}}</td>
+                <td>{{channel.channel_users}}</td>
+                <td>{{channel.active_users}}</td>
+                <td><span class="btn btn-primary" [routerLink]="['update/', channel._id]"><i class="fa fa-edit"></i>Edit</span>
+                  &nbsp; <span class="btn btn-primary" (click)="deleteProduct(channel._id)"><i class="fa fa-trash"></i>Delete</span></td>
+            </tr>
+        </table>
+    </form>
 </div>
+
+
+<!-- TODO
+- Add modal or table row of all channels for a certain group. This will allow for admins to update or delete a channel
+
+-->
