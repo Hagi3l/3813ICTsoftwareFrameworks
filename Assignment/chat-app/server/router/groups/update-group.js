@@ -20,12 +20,9 @@ module.exports = function(usersCollection, groupsCollection, app, ObjectId) {
                 group_assistants: ga,
                 group_users: gu
             }
-        }, (err, result) => {
+        }, (err) => {
             if(err) { return res.sendStatus(400); }
-            console.log(result);
-            return res.send(result);
-
-            //TODO: error handling and proper responses!+
+            return res.status(200).send("Group has successfully updated");
         });
     });
 };
