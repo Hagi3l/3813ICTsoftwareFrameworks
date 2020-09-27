@@ -1,1 +1,10 @@
-<p>admin-page works!</p>
+<div class="container">
+    <h1>Admin Page</h1>
+    <form [formGroup]="myForm">
+        <label for="groups">Group</label>
+        <input type="text" >
+        <select formControlName="group_id">
+            <option *ngFor="let group of groups" [ngValue]="group._id">{{ group.group_name }}</option>
+        </select>
+    </form>
+</div>
