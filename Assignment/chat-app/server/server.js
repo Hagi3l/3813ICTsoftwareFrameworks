@@ -55,7 +55,7 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
     require('./router/channels/get-channels')(channelsCollection, app); // get channels
     require('./router/channels/add-channel')(channelsCollection, app, ObjectID); // add channels
     require('./router/channels/update-channel')(channelsCollection, app, ObjectID); // update channels
-    // delete channels
+    require('./router/channels/delete-channel')(channelsCollection, app, ObjectID); // delete channels
     // add user to channel
     // save chat history
     // Add active user to channel
