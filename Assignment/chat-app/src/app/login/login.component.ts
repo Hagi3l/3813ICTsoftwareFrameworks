@@ -15,7 +15,7 @@ const BACKEND_URL = 'http://localhost:3000';
 
 export class LoginComponent implements OnInit {
 
-    constructor(private router: Router, private httpClient: HttpClient, private userData: UserDataService) {}
+    constructor(private router: Router, private httpClient: HttpClient, private userService: UserDataService) {}
 
     username: string;
     password: string;
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     loginDetails = null;
 
     ngOnInit() {
-        if (this.userData.active_user) {
+        if (this.userService.active_user) {
             this.router.navigateByUrl('');
         }
         this.loginDetails = {username: this.username, password: this.password};

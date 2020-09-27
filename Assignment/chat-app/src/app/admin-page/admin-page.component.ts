@@ -12,11 +12,10 @@ export class AdminPageComponent implements OnInit {
     constructor(private router: Router, private userService: UserDataService) { }
 
     active_user:boolean;
-    roles = ["super-admin", "group-admin", "group-assistant"]
 
     ngOnInit() {
         this.active_user = this.userService.active_user;
-        if (this.active_user && this.roles.includes(this.userService.user_info.role) ) {
+        if (this.active_user && this.userService.roles.includes(this.userService.user_info.role) ) {
             console.log("Admin user");
         } else {
             this.router.navigateByUrl('');
