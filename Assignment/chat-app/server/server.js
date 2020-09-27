@@ -53,9 +53,10 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
 
     // Channels - REST
     require('./router/channels/get-channels')(channelsCollection, app); // get channels
-    // add channels
+    require('./router/channels/add-channel')(channelsCollection, app, ObjectID); // add channels
     // update channels
     // delete channels
     // add user to channel
+    // save chat history
 
 });
