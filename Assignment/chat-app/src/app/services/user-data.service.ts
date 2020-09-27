@@ -5,18 +5,20 @@ import { Injectable } from '@angular/core';
 })
 export class UserDataService {
 
-    public active_user:boolean = false;
-    user_info;
+    private _active_user:boolean = false;
+    private _user_info;
 
     constructor() { }
 
-
-    get_user_info() {
-        if (this.active_user) {
-            return this.user_info;
-        } else {
-            this.active_user = true;
-            return JSON.parse(localStorage.getItem("active-user"));
-        }
+    get active_user() {
+        let storage = JSON.parse(localStorage.getItem("active-user"));
+        this._user_info = storage.user;
+        this._active_user = storage.session;
+        return this._active_user;
     }
+    set active_user(status) {
+        this._active_user = status
+    }
+
+    get user_info() { return this._user_info; }
 }

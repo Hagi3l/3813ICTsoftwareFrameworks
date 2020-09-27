@@ -1,6 +1,7 @@
 import { Component,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserDataService } from '../services/user-data.service';
 
 
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', observe: 'body'}) };
@@ -14,20 +15,18 @@ const BACKEND_URL = 'http://localhost:3000';
 
 export class LoginComponent implements OnInit {
 
-    constructor(private router: Router, private httpClient: HttpClient) {}
+    constructor(private router: Router, private httpClient: HttpClient, private userData: UserDataService) {}
 
     username: string;
     password: string;
-    active_user: boolean = false;
+    // active_user: boolean = false;
     loginDetails = null;
 
     ngOnInit() {
-        console.log(this.active_user);
         if ("active-user" in localStorage) {
             this.router.navigateByUrl('');
         }
         this.loginDetails = {username: this.username, password: this.password};
-
     }
 
     login() {
@@ -36,7 +35,13 @@ export class LoginComponent implements OnInit {
                 console.log('error');
                 // display error in login field
             } else {
-                localStorage.setItem('active-user', JSON.stringify(data));
+                localStorage.setItem('active-user', JSON.stringify(
+                    {
+                        "user": data,
+                        "session": true
+                    }
+                ));
+                // localStorage.setItem('session', JSON.stringify(true));
                 this.router.navigateByUrl('account');
             }
         });

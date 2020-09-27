@@ -11,13 +11,11 @@ export class AccountComponent implements OnInit {
 
     constructor(private router: Router, private userService: UserDataService) { }
 
-    active_user:boolean = false;
     user_data;
 
     ngOnInit() {
-        if ("active-user" in localStorage) {
-            this.active_user = true;
-            this.user_data = this.userService.get_user_info();
+        if (this.userService.active_user) {
+            this.user_data = this.userService.user_info;
             console.log(this.user_data);
         } else {
             this.router.navigateByUrl('');
