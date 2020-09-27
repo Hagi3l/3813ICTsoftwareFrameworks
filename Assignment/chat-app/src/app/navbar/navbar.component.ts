@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor(private router: Router) { }
+
+  active_user:boolean = false;
+
+  ngOnInit() {
+    if ("active-user" in localStorage) {
+        this.active_user = true;
+    }
   }
 }
