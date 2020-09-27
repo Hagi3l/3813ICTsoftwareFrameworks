@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
                 console.log('error');
                 // display error in login field
             } else {
-                localStorage.setItem('active-user', data.toString());
+                localStorage.setItem('active-user', JSON.stringify(data));
                 this.router.navigateByUrl('account');
             }
         });
