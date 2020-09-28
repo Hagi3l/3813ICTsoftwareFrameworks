@@ -22,7 +22,7 @@ export class AdminPageComponent implements OnInit {
     public channelUsers = [];
     public channelActiveUsers;
     public usersArray;
-    public channelId = "";
+    public channelId:string;
     public tempArray = [];
     closeResult: string;
 
@@ -62,20 +62,36 @@ export class AdminPageComponent implements OnInit {
                             }
                         }
                     }
-                    this.tempArray = [];
                 });
-
             })
         });
     }
 
     openVerticallyCentered(content) {
         this.tempArray = [];
+        this.channelId = content._declarationView[content._declarationView.length - 2];
         for(let user of this.channelUsers) {
-            if(content._declarationView[44] == user.channel_id) {
+            if(this.channelId == user.channel_id) {
                 this.tempArray.push(user);
             }
         }
         this.modalService.open(content, { centered: true });
-      }
+    }
+
+
+    public deleteChannel() {
+
+        this.groupChannelService.deleteChannel(this.channelId).subscribe( (data) => {
+            if(data.ok) {
+                this.channels.forEach( (channel, index) => {
+                    if(channel._id == this.channelId) {
+                        this.channels.splice(index, 1);
+                        console.log("Channel Deleted");
+                    }
+                });
+            } else {
+                console.log(data);
+            }
+        });
+    }
 }

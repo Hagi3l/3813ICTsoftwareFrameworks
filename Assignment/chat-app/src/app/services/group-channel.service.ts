@@ -17,4 +17,8 @@ export class GroupChannelService {
         return this.httpClient.get('/api/get-channels/' + groupId);
     }
 
+    public deleteChannel(channelId): Observable<any> {
+        return this.httpClient.post('/api/delete-channel/', {channel_id: channelId});
+    }
+
 }

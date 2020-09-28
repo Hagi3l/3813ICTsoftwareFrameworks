@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Admin Page</h1>
-    <form [formGroup]="groupForm">
+    <form [formGroup]="groupForm" class="mb-5 pb-5">
         <label for="groups">Group</label>
         <select formControlName="group_id" class="form-control">
             <option *ngFor="let group of groups" [ngValue]="group._id">{{ group.group_name }}</option>
@@ -21,8 +21,9 @@
                 <td>{{channel.active_users.length}}</td>
                 <td>{{channel._id}}</td>
                 <td>{{channel.group_id}}</td>
-                <td><button class="btn btn-outline-primary mb-2 mr-2" (click)="openVerticallyCentered(content)">Edit</button></td>
-                <td>&nbsp; <span class="btn btn-primary"><i class="fa fa-trash"></i>Delete</span></td>
+                <td>
+                    <button class="btn btn-outline-primary mb-2 mr-2" (click)="openVerticallyCentered(content)">Edit</button>&nbsp;
+                </td>
 
                 <ng-template #content let-modal>
                     <div class="modal-header">
@@ -36,7 +37,7 @@
                         <form>
                             <div class="form-group">
                                 <label for="channelid">Channel ID</label>
-                                <input type="number" class="form-control" id="channelid" name="channelid" placeholder="{{channel._id}}" value="{{channel._id}}" disabled>
+                                <input type="number" class="form-control" id="channelid" [(ngModel)]="channelId" name="channelid" placeholder="{{channel._id}}" value="{{channel._id}}" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="channelid">Group ID</label>
@@ -53,9 +54,14 @@
                                     <option *ngFor="let user of tempArray">{{ user.username }}</option>
                                 </select>
                             </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Update</button>
-                                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                            <div class="modal-footer justify-content-between">
+                                <div class="btn-group">
+                                    <button class="btn btn-outline-danger mb-2 mr-2 float-left" (click)="deleteChannel()" (click)="modal.close('Close click')">Delete</button>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
+                                </div>
                             </div>
                         </form>
                     </div>
