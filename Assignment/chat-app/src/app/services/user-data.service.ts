@@ -27,8 +27,8 @@ export class UserDataService {
 
     get user_info() { return this._user_info; }
 
-    public fetchUsersData(): Observable<any> {
-        return this.httpClient.get('/api/get-users');
+    public fetchUsersData(id: string): Observable<any> {
+        return this.httpClient.get('/api/users/' + id);
     }
 
 }
