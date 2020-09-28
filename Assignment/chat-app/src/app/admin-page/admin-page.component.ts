@@ -19,9 +19,11 @@ export class AdminPageComponent implements OnInit {
     public channels: Array<any>;
     public groupForm;
     public channelForm;
-    public channelUsers: Array<any> = [];
+    public channelUsers = [];
     public channelActiveUsers;
     public usersArray;
+    public channelId = "";
+    public tempArray = [];
     closeResult: string;
 
 
@@ -41,45 +43,39 @@ export class AdminPageComponent implements OnInit {
             group_id: this.groups,
         });
 
-        this.channelForm = this.formBuilder.group({
-           channel_id: this.channels,
-        });
-
         this.onChanges();
     }
 
     onChanges(): void {
-        this.channelUsers = [];
         this.groupForm.valueChanges.subscribe(val => {
             this.groupChannelService.fetchChannelData(val.group_id).subscribe((data) => {
                 this.channels = data;
                 this.userService.fetchUsersData().subscribe((data) => {
                     this.usersArray = data;
+                    this.channelUsers = [];
                     for(let u of data) {
-                        for(let g of this.channels) {
-                            for(let gu of g.channel_users) {
+                        for(let c of this.channels) {
+                            for(let gu of c.channel_users) {
                                 if(u._id == gu) {
-                                    this.channelUsers.push({id: u._id, username: u.username });
+                                    this.channelUsers.push({channel_id: c._id, user_id: u._id, username: u.username});
                                 }
                             }
                         }
-
-
                     }
-                    console.log(this.channels);
-                    console.log(this.usersArray);
-                    console.log(this.channelUsers);
-
-                })
+                    this.tempArray = [];
+                });
 
             })
-        });
-        this.channelForm.valueChanges.subscribe(val => {
-            console.log(val);
         });
     }
 
     openVerticallyCentered(content) {
+        this.tempArray = [];
+        for(let user of this.channelUsers) {
+            if(content._declarationView[44] == user.channel_id) {
+                this.tempArray.push(user);
+            }
+        }
         this.modalService.open(content, { centered: true });
       }
 }
