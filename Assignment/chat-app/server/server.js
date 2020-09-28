@@ -14,7 +14,6 @@ const server = require('./listen.js');
 const PORT = 3000;
 
 app.use(bodyParser.json());
-// app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 const url = 'mongodb://localhost:27017';
