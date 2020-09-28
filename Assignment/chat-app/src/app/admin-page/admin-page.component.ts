@@ -12,18 +12,19 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AdminPageComponent implements OnInit {
 
-    constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserDataService, private groupChannelService: GroupChannelService, private modalService: NgbModal) { }
+    constructor(private router: Router, private userService: UserDataService, private groupChannelService: GroupChannelService, private modalService: NgbModal) { }
 
+    //User Auth
     private active_user: boolean;
+
+    // Init Values
     public groups: Array<any>;
     public channels: Array<any>;
-    public groupForm;
-    public channelForm;
-    public channelUsers = [];
-    public channelActiveUsers;
-    public usersArray;
-    public channelId:string;
-    public tempArray = [];
+    public channelUsers: Array<any> = [];
+    public channel;
+    public selected_group: Object;
+
+    // Modal
     closeResult: string;
 
 
@@ -38,60 +39,39 @@ export class AdminPageComponent implements OnInit {
         this.groupChannelService.fetchGroupData().subscribe((data) => {
             this.groups = data;
         });
-
-        this.groupForm = this.formBuilder.group({
-            group_id: this.groups,
-        });
-
-        this.onChanges();
     }
 
-    onChanges(): void {
-        this.groupForm.valueChanges.subscribe(val => {
-            this.groupChannelService.fetchChannelData(val.group_id).subscribe((data) => {
-                this.channels = data;
-                this.userService.fetchUsersData().subscribe((data) => {
-                    this.usersArray = data;
-                    this.channelUsers = [];
-                    for(let u of data) {
-                        for(let c of this.channels) {
-                            for(let gu of c.channel_users) {
-                                if(u._id == gu) {
-                                    this.channelUsers.push({channel_id: c._id, user_id: u._id, username: u.username});
-                                }
-                            }
-                        }
-                    }
-                });
-            })
+    public getChannels(groupId): void  {
+        this.channels = [];
+        this.groupChannelService.fetchChannelData(groupId).subscribe((data) => {
+            this.channels = data;
         });
     }
 
-    openVerticallyCentered(content) {
-        this.tempArray = [];
-        this.channelId = content._declarationView[content._declarationView.length - 2];
-        for(let user of this.channelUsers) {
-            if(this.channelId == user.channel_id) {
-                this.tempArray.push(user);
-            }
+    public getChannelsUsers(channel): void {
+        this.channelUsers = [];
+        this.channel = channel;
+        for (const user of channel.channel_users) {
+            this.userService.fetchUsersData(user).subscribe((data) => {
+                this.channelUsers.push(data);
+            });
         }
+    }
+
+    public openVerticallyCentered(content): void {
         this.modalService.open(content, { centered: true });
     }
 
-
-    public deleteChannel() {
-
-        this.groupChannelService.deleteChannel(this.channelId).subscribe( (data) => {
-            if(data.ok) {
-                this.channels.forEach( (channel, index) => {
-                    if(channel._id == this.channelId) {
-                        this.channels.splice(index, 1);
-                        console.log("Channel Deleted");
-                    }
-                });
-            } else {
-                console.log(data);
-            }
+    public deleteChannel(channel) {
+        this.groupChannelService.deleteChannel(channel._id).subscribe( (data) => {
+            if(data.ok == 1 && data.n == 1 && data.deletedCount == 1) {
+                this.getChannels(channel.group_id);
+            } else { console.log("ERROR Deleting Channel");}
         });
     }
+
+    public updateChannel() {
+
+    }
+
 }
