@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ export class UserDataService {
     private _user_info;
     roles = ["super-admin", "group-admin", "group-assistant"];
 
-    constructor() { }
+    constructor(private httpClient: HttpClient) { }
 
     get active_user() {
         if(localStorage.getItem("active-user")) {
@@ -24,4 +26,9 @@ export class UserDataService {
     }
 
     get user_info() { return this._user_info; }
+
+    public fetchUsersData(): Observable<any> {
+        return this.httpClient.get('/api/get-users');
+    }
+
 }

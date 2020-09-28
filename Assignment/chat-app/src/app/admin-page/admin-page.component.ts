@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserDataService } from '../services/user-data.service';
 import { GroupChannelService } from '../services/group-channel.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-page',
@@ -11,13 +12,17 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 })
 export class AdminPageComponent implements OnInit {
 
-    constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserDataService, private groupChannelService: GroupChannelService) { }
+    constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserDataService, private groupChannelService: GroupChannelService, private modalService: NgbModal) { }
 
     private active_user: boolean;
     public groups: Array<any>;
     public channels: Array<any>;
     public groupForm;
     public channelForm;
+    public channelUsers: Array<any> = [];
+    public channelActiveUsers;
+    public usersArray;
+    closeResult: string;
 
 
     public ngOnInit(): void {
@@ -44,14 +49,37 @@ export class AdminPageComponent implements OnInit {
     }
 
     onChanges(): void {
+        this.channelUsers = [];
         this.groupForm.valueChanges.subscribe(val => {
             this.groupChannelService.fetchChannelData(val.group_id).subscribe((data) => {
                 this.channels = data;
-                console.log(data);
+                this.userService.fetchUsersData().subscribe((data) => {
+                    this.usersArray = data;
+                    for(let u of data) {
+                        for(let g of this.channels) {
+                            for(let gu of g.channel_users) {
+                                if(u._id == gu) {
+                                    this.channelUsers.push({id: u._id, username: u.username });
+                                }
+                            }
+                        }
+
+
+                    }
+                    console.log(this.channels);
+                    console.log(this.usersArray);
+                    console.log(this.channelUsers);
+
+                })
+
             })
         });
         this.channelForm.valueChanges.subscribe(val => {
             console.log(val);
         });
     }
+
+    openVerticallyCentered(content) {
+        this.modalService.open(content, { centered: true });
+      }
 }

@@ -2,36 +2,71 @@
     <h1>Admin Page</h1>
     <form [formGroup]="groupForm">
         <label for="groups">Group</label>
-        <select formControlName="group_id">
+        <select formControlName="group_id" class="form-control">
             <option *ngFor="let group of groups" [ngValue]="group._id">{{ group.group_name }}</option>
         </select>
     </form>
-    <form [formGroup]="channelForm">
-        <label for="channels">Channels</label>
-        <select formControlName="channel_id">
-            <option *ngFor="let channel of channels" [ngValue]="channel._id">{{ channel.channel_name }}</option>
-        </select>
         <table class="table">
             <tr>
-                <th>Channel ID</th>
                 <th>Name</th>
-                <th>Group ID</th>
                 <th>Channel Users</th>
                 <th>Channel Active Users</th>
+                <th>Channel ID</th>
+                <th>Group ID</th>
                 <th>Actions</th>
             </tr>
             <tr class="pt-5" *ngFor="let channel of channels">
-                <td>{{channel._id}}</td>
                 <td>{{channel.channel_name}}</td>
+                <td>{{channel.channel_users.length}}</td>
+                <td>{{channel.active_users.length}}</td>
+                <td>{{channel._id}}</td>
                 <td>{{channel.group_id}}</td>
-                <td>{{channel.channel_users}}</td>
-                <td>{{channel.active_users}}</td>
-                <td><span class="btn btn-primary" [routerLink]="['update/', channel._id]"><i class="fa fa-edit"></i>Edit</span>
-                  &nbsp; <span class="btn btn-primary" (click)="deleteProduct(channel._id)"><i class="fa fa-trash"></i>Delete</span></td>
+                <td><button class="btn btn-outline-primary mb-2 mr-2" (click)="openVerticallyCentered(content)">Edit</button></td>
+                <td>&nbsp; <span class="btn btn-primary"><i class="fa fa-trash"></i>Delete</span></td>
+
+                <ng-template #content let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{channel.channel_name}}</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="channelid">Channel ID</label>
+                                <input type="number" class="form-control" id="channelid" name="channelid" placeholder="{{channel._id}}" value="{{channel._id}}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="channelid">Group ID</label>
+                                <input type="text" class="form-control" id="groupId" [(ngModel)]="groupId" name="productdesc" value="{{channel.group_id}}" placeholder="{{channel.group_id}}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="channelname">Channel Name</label>
+                                <input type="text" class="form-control" id="channelname" [(ngModel)]="channelname" name="channelname" value="{{channel.channel_name}}" placeholder="{{channel.channel_name}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="channel_users">Channel Users</label>
+                                <select multiple class="form-control" name="channel_users">
+                                    <option *ngFor="let user of channelUsers">{{ user.username }}</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </ng-template>
             </tr>
         </table>
-    </form>
+
 </div>
+
+
+
 
 
 <!-- TODO
