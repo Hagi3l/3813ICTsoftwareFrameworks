@@ -37,7 +37,7 @@ MongoClient.connect(url, {poolSize:10, useNewUrlParser: true, useUnifiedTopology
 
     // User - REST
     require('./router/users/add-new-user')(usersCollection, app); // Add user
-    require('./router/users/get-users')(usersCollection, app); // Get all users
+    require('./router/users/get-users')(usersCollection, app, ObjectID); // Get all users
     require('./router/users/update-user')(usersCollection, app, ObjectID); // update user
     require('./router/users/delete-user')(usersCollection, app, ObjectID); // remove user
 
