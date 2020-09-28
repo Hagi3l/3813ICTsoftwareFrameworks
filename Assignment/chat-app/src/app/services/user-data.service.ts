@@ -31,4 +31,8 @@ export class UserDataService {
         return this.httpClient.get('/api/users/' + id);
     }
 
+    public fetchUsers(): Observable<any> {
+        return this.httpClient.get('/api/users/');
+    }
+
 }

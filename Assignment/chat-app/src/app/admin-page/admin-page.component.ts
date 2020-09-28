@@ -51,11 +51,22 @@ export class AdminPageComponent implements OnInit {
     public getChannelsUsers(channel): void {
         this.channelUsers = [];
         this.channel = channel;
+        let users = this.getUsers();
+        console.log(users);
         for (const user of channel.channel_users) {
             this.userService.fetchUsersData(user).subscribe((data) => {
                 this.channelUsers.push(data);
             });
         }
+    }
+
+    private getUsers() {
+        let  udata;
+        this.userService.fetchUsers().subscribe((data) => {
+            udata = data;
+            console.log(data);
+        });
+        return udata;
     }
 
     public openVerticallyCentered(content): void {
