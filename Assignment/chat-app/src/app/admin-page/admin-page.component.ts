@@ -22,7 +22,7 @@ export class AdminPageComponent implements OnInit {
     public channels: Array<any>;
     public channelUsers: Array<any> = [];
     public channel: Object;
-    public selected_group: Object;
+    public selected_group: string;
 
     //FIX NEEDED: USED FOR DISPLAYING AN ERROR WHEN ADMIN TRIES TO ADD A USER TO A CHANNEL WHEN THEY ALREADY ARE
     public errorUser: boolean = false;
@@ -48,16 +48,21 @@ export class AdminPageComponent implements OnInit {
             this.router.navigateByUrl('');
         }
 
-        this.groupChannelService.fetchGroupData().subscribe((data) => {
-            this.groups = data;
-        });
+        this.getGroups();
 
         this.userService.fetchUsers().subscribe((data) => {
             this.allUsers = data;
         });
     }
 
+    private getGroups() {
+        this.groupChannelService.fetchGroupData().subscribe((data) => {
+            this.groups = data;
+        });
+    }
+
     public getChannels(groupId: string): void  {
+        this.selected_group = groupId;
         this.channels = [];
         this.groupChannelService.fetchChannelData(groupId).subscribe((data) => {
             this.channels = data;
@@ -115,5 +120,13 @@ export class AdminPageComponent implements OnInit {
             this.channelUsers.push(user);
         }
 
+    }
+
+    public deleteGroup() {
+        this.groupChannelService.deleteGroup(this.selected_group).subscribe( (data) => {
+            if(data.ok == 1 && data.n == 1 && data.deletedCount == 1) {
+                this.getGroups();
+            } else { console.log("ERROR Deleting Group");}
+        })
     }
 };

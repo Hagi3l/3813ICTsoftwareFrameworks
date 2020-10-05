@@ -13,15 +13,19 @@ export class GroupChannelService {
         return this.httpClient.get('/api/get-groups');
     }
 
-    public fetchChannelData(groupId): Observable<any> {
+    public deleteGroup(id: string): Observable<any> {
+        return this.httpClient.post('/api/delete-group', {id: id});
+    }
+
+    public fetchChannelData(groupId: string): Observable<any> {
         return this.httpClient.get('/api/get-channels/' + groupId);
     }
 
-    public deleteChannel(channelId): Observable<any> {
+    public deleteChannel(channelId: string): Observable<any> {
         return this.httpClient.post('/api/delete-channel/', {channel_id: channelId});
     }
 
-    public updateChannel(channel): Observable<any> {
+    public updateChannel(channel: Object): Observable<any> {
         return this.httpClient.post('/api/update-channel', channel);
     }
 
