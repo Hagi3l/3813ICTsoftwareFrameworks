@@ -21,4 +21,10 @@ export class GroupChannelService {
         return this.httpClient.post('/api/delete-channel/', {channel_id: channelId});
     }
 
+    public updateChannel(channelId, channelUsers): Observable<any> {
+        console.log(channelId);
+        return;
+        // return this.httpClient.post('/api/update-channel', {channel_id: channelId, })
+    }
+
 }

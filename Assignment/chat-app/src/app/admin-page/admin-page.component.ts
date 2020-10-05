@@ -21,8 +21,7 @@ export class AdminPageComponent implements OnInit {
     public groups: Array<any>;
     public channels: Array<any>;
     public channelUsers: Array<any> = [];
-    public usersNIC: Array<any> = [];
-    public channel;
+    public channel: Object;
     public selected_group: Object;
 
     public selected_user_add_channel;
@@ -33,7 +32,7 @@ export class AdminPageComponent implements OnInit {
     private allUsers: Array<any>;
 
     // Modal
-    closeResult: string;
+    public closeResult: string;
 
 
     public ngOnInit(): void {
@@ -84,6 +83,10 @@ export class AdminPageComponent implements OnInit {
     }
 
     public updateChannel() {
+        console.log(this.channel);
+        // this.groupChannelService.updateChannel(channel._id).subscribe( (data) => {
+
+        // });
 
     }
 
