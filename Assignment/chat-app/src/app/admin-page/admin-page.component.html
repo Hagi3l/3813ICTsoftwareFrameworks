@@ -1,33 +1,60 @@
-<div class="container">
-    <h1>Admin Page</h1>
-    <form class="mb-5 pb-5">
-        <label for="groups">Group</label>
-        <select class="form-control" name="group-form" [ngModel]="selected_group" (ngModelChange)="getChannels($event)">
-            <option *ngFor="let group of groups" [ngValue]="group._id" >{{ group.group_name }}</option>
-        </select>
-    </form>
+<div class="container d-flex flex-column">
 
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>Channel Users</th>
-            <th>Channel Active Users</th>
-            <th>Channel ID</th>
-            <th>Group ID</th>
-            <th>Actions</th>
-        </tr>
-        <tr class="pt-5" *ngFor="let channel of channels">
-            <td>{{ channel.channel_name }}</td>
-            <td>{{ channel.channel_users.length }}</td>
-            <td>{{ channel.active_users.length }}</td>
-            <td>{{ channel._id }}</td>
-            <td>{{ channel.group_id }}</td>
-            <td>
-                <button class="btn btn-outline-primary mb-2 mr-2" (click)="getChannelsUsers(channel)" (click)="openVerticallyCentered(content)">Edit</button>
-            </td>
-        </tr>
+    <div class="align-self-center mb-5">
+        <h1>Admin Panel</h1>
+    </div>
 
-    </table>
+    <div id="groups" class="d-flex flex-column">
+
+        <div class="align-self-center mt-5">
+            <h2>Groups</h2>
+        </div>
+
+        <form class="mb-4 w-50 align-self-center">
+            <label for="groups">Choose a Group</label>
+            <select class="form-control" name="group-form" [ngModel]="selected_group" (ngModelChange)="getChannels($event)">
+                <option *ngFor="let group of groups" [ngValue]="group._id" >{{ group.group_name }}</option>
+            </select>
+        </form>
+
+        <div class="mb-5 align-self-center">
+            <button class="btn btn-outline-danger btn-sm">Delete</button>
+            <button class="btn btn-primary ml-5">Update</button>
+        </div>
+
+    </div>
+
+    <div id="channels" class="d-flex flex-column">
+
+        <div class="align-self-center mt-5">
+            <h2>Channels</h2>
+        </div>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Channel Users</th>
+                <th>Channel Active Users</th>
+                <th>Channel ID</th>
+                <th>Group ID</th>
+                <th>Actions</th>
+            </tr>
+            <tr class="pt-5" *ngFor="let channel of channels">
+                <td>{{ channel.channel_name }}</td>
+                <td>{{ channel.channel_users.length }}</td>
+                <td>{{ channel.active_users.length }}</td>
+                <td>{{ channel._id }}</td>
+                <td>{{ channel.group_id }}</td>
+                <td>
+                    <button class="btn btn-outline-primary mb-2 mr-2" (click)="getChannelsUsers(channel)" (click)="openVerticallyCentered(content)">Edit</button>
+                </td>
+            </tr>
+        </table>
+
+        <div class="align-self-center mt-5">
+            <button class="btn btn-success mb-2 mr-2">New</button>
+        </div>
+
+    </div>
 </div>
 
 <ng-template #content let-modal>
