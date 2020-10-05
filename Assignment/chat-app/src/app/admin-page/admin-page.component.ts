@@ -21,8 +21,16 @@ export class AdminPageComponent implements OnInit {
     public groups: Array<any>;
     public channels: Array<any>;
     public channelUsers: Array<any> = [];
+    public usersNIC: Array<any> = [];
     public channel;
     public selected_group: Object;
+
+    public selected_user_add_channel;
+    //FIX NEEDED: USED FOR DISPLAYING AN ERROR WHEN ADMIN TRIES TO ADD A USER TO A CHANNEL WHEN THEY ALREADY ARE
+    public errorUser: boolean = false;
+
+    //Users
+    private allUsers: Array<any>;
 
     // Modal
     closeResult: string;
@@ -39,34 +47,28 @@ export class AdminPageComponent implements OnInit {
         this.groupChannelService.fetchGroupData().subscribe((data) => {
             this.groups = data;
         });
+
+        this.userService.fetchUsers().subscribe((data) => {
+            this.allUsers = data;
+        });
     }
 
-    public getChannels(groupId): void  {
+    public getChannels(groupId: string): void  {
         this.channels = [];
         this.groupChannelService.fetchChannelData(groupId).subscribe((data) => {
             this.channels = data;
         });
     }
 
-    public getChannelsUsers(channel): void {
+    public getChannelsUsers(channel: any): void {
         this.channelUsers = [];
         this.channel = channel;
-        let users = this.getUsers();
-        console.log(users);
+
         for (const user of channel.channel_users) {
             this.userService.fetchUsersData(user).subscribe((data) => {
                 this.channelUsers.push(data);
             });
         }
-    }
-
-    private getUsers() {
-        let  udata;
-        this.userService.fetchUsers().subscribe((data) => {
-            udata = data;
-            console.log(data);
-        });
-        return udata;
     }
 
     public openVerticallyCentered(content): void {
@@ -85,4 +87,16 @@ export class AdminPageComponent implements OnInit {
 
     }
 
-}
+    public addUserToChannel(user: any) {
+
+        const exists = Boolean(this.channelUsers.find(x => x._id === user._id));
+
+        if (exists) {
+            console.log('found user');
+            // Display an error to the admin
+        } else {
+            this.channelUsers.push(user);
+        }
+
+    }
+};

@@ -57,14 +57,17 @@
                     <option *ngFor="let user of channelUsers" value="{{user.user_id}}">{{ user.username }}  -  ({{ user.role }})</option>
                 </select>
             </div>
-            <!-- <div class="form-group">
-                <label for="channel_user_add">Add User to Channel</label>
-                <input type="text" class="form-control" name="channel_user_add">
-                <select name="channel_user_add">
-                    <option *ngFor="let allUser of usersNIC" value="{{allUser._id}}">{{ allUser.username }}</option>
+            <div class="form-group">
+                <label for="selected_user_add_channel">Add User to Channel</label>
+                <select name="selected_user_add_channel" class="form-control" [ngModel]="selected_user_add_channel" (ngModelChange)="addUserToChannel($event)">
+                    <option *ngFor="let allUser of allUsers" [ngValue]="allUser">{{ allUser.username }}</option>
                 </select>
-                <button class="btn btn-secondary">Add</button>
-            </div> -->
+                <!-- FIX: not showing unless true -->
+                <div class="alert-danger" >User already in the channel</div>
+            </div>
+            <div class="form-group">
+
+            </div>
             <div class="modal-footer justify-content-between">
                 <div class="btn-group">
                     <button class="btn btn-outline-danger mb-2 mr-2 float-left" (click)="deleteChannel(channel)" (click)="modal.close('Close click')">Delete</button>
