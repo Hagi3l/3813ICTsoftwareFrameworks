@@ -126,6 +126,7 @@ export class AdminPageComponent implements OnInit {
         this.groupChannelService.deleteGroup(this.selected_group).subscribe( (data) => {
             if(data.ok == 1 && data.n == 1 && data.deletedCount == 1) {
                 this.getGroups();
+                this.selected_group = null;
             } else { console.log("ERROR Deleting Group");}
         })
     }
