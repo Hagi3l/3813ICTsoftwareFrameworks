@@ -22,7 +22,7 @@ export class AdminPageComponent implements OnInit {
     public channels: Array<any>;
     public channelUsers: Array<any> = [];
     public channel: Object;
-    public selected_group: string;
+    public selected_group: any;
 
     //FIX NEEDED: USED FOR DISPLAYING AN ERROR WHEN ADMIN TRIES TO ADD A USER TO A CHANNEL WHEN THEY ALREADY ARE
     public errorUser: boolean = false;
@@ -61,10 +61,10 @@ export class AdminPageComponent implements OnInit {
         });
     }
 
-    public getChannels(groupId: string): void  {
-        this.selected_group = groupId;
+    public getChannels(group: any): void  {
+        this.selected_group = group;
         this.channels = [];
-        this.groupChannelService.fetchChannelData(groupId).subscribe((data) => {
+        this.groupChannelService.fetchChannelData(group._id).subscribe((data) => {
             this.channels = data;
         });
     }
@@ -85,14 +85,17 @@ export class AdminPageComponent implements OnInit {
         }
     }
 
-    public openVerticallyCentered(content): void {
-        this.modalService.open(content, { centered: true });
+    public openChannelEditModel(channelEdit): void {
+        this.modalService.open(channelEdit, { centered: true });
+    }
+    public deleteGroupModal(groupDelete): void {
+        this.modalService.open(groupDelete, { centered: true });
     }
 
-    public deleteChannel(channel) {
-        this.groupChannelService.deleteChannel(channel._id).subscribe( (data) => {
+    public deleteChannel() {
+        this.groupChannelService.deleteChannel(this.channelId.value).subscribe( (data) => {
             if(data.ok == 1 && data.n == 1 && data.deletedCount == 1) {
-                this.getChannels(channel.group_id);
+                this.getChannels({_id: this.channelGroupId.value});
             } else { console.log("ERROR Deleting Channel");}
         });
     }
@@ -123,7 +126,7 @@ export class AdminPageComponent implements OnInit {
     }
 
     public deleteGroup() {
-        this.groupChannelService.deleteGroup(this.selected_group).subscribe( (data) => {
+        this.groupChannelService.deleteGroup(this.selected_group._id).subscribe( (data) => {
             if(data.ok == 1 && data.n == 1 && data.deletedCount == 1) {
                 this.getGroups();
                 this.selected_group = null;

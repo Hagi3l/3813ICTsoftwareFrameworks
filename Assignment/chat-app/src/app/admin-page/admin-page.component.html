@@ -13,13 +13,14 @@
         <form class="mb-4 w-50 align-self-center">
             <label for="groups">Choose a Group</label>
             <select class="form-control" name="group-form" [ngModel]="selected_group" (ngModelChange)="getChannels($event)">
-                <option *ngFor="let group of groups" [ngValue]="group._id" >{{ group.group_name }}</option>
+                <option *ngFor="let group of groups" [ngValue]="group" >{{ group.group_name }}</option>
             </select>
         </form>
 
         <div *ngIf="selected_group" class="mb-5 align-self-center">
-            <button (click)="deleteGroup()" class="btn btn-outline-danger btn-sm">Delete</button>
-            <button class="btn btn-primary ml-5">Update</button>
+            <button class="btn btn-outline-danger btn-sm" (click)="deleteGroupModal(groupDelete)">Delete</button>
+            <button class="btn btn-success ml-5">New</button>
+            <button class="btn btn-outline-primary btn-sm ml-5">Update</button>
         </div>
 
     </div>
@@ -45,7 +46,7 @@
                 <td>{{ channel._id }}</td>
                 <td>{{ channel.group_id }}</td>
                 <td>
-                    <button class="btn btn-outline-primary mb-2 mr-2" (click)="getChannelsUsers(channel)" (click)="openVerticallyCentered(content)">Edit</button>
+                    <button class="btn btn-outline-primary mb-2 mr-2" (click)="getChannelsUsers(channel)" (click)="openChannelEditModel(channelEdit)">Edit</button>
                 </td>
             </tr>
         </table>
@@ -57,7 +58,28 @@
     </div>
 </div>
 
-<ng-template #content let-modal>
+<ng-template #groupDelete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Are you sure?</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>You're about to delete group: <strong>{{ selected_group.group_name }}</strong></p>
+    </div>
+    <div class="modal-footer justify-content-between">
+        <div class="btn-group">
+            <button class="btn btn-outline-danger mb-2 mr-2 float-left" (click)="deleteGroup()" (click)="modal.close('Close click')">Delete</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #channelEdit let-modal>
     <div class="modal-header">
         <h4 class="modal-title">{{ channel.channel_name }}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -97,7 +119,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <div class="btn-group">
-                    <button class="btn btn-outline-danger mb-2 mr-2 float-left" (click)="deleteChannel(channel)" (click)="modal.close('Close click')">Delete</button>
+                    <button class="btn btn-outline-danger mb-2 mr-2 float-left" (click)="deleteChannel()" (click)="modal.close('Close click')">Delete</button>
                 </div>
                 <div class="btn-group">
                     <button type="submit" class="btn btn-primary" (click)="updateChannel()">Update</button>
