@@ -14,7 +14,7 @@ export class AdminPageComponent implements OnInit {
 
     constructor(private router: Router, private userService: UserDataService, private groupChannelService: GroupChannelService, private modalService: NgbModal) { }
 
-    //User Auth
+    // User Auth
     private active_user: boolean;
 
     // Init Values
@@ -24,10 +24,10 @@ export class AdminPageComponent implements OnInit {
     public channel: Object;
     public selected_group: any;
 
-    //FIX NEEDED: USED FOR DISPLAYING AN ERROR WHEN ADMIN TRIES TO ADD A USER TO A CHANNEL WHEN THEY ALREADY ARE
+    // FIX NEEDED: USED FOR DISPLAYING AN ERROR WHEN ADMIN TRIES TO ADD A USER TO A CHANNEL WHEN THEY ALREADY ARE
     public errorUser: boolean = false;
 
-    //Users
+    // Users
     private allUsers: Array<any>;
 
     // Modal
@@ -38,12 +38,17 @@ export class AdminPageComponent implements OnInit {
     private channelGroupId = new FormControl({value: '', disabled: true});
     private channelName = new FormControl('', Validators.required);
 
+    // Edit Group Form
+    private groupId = new FormControl({value: '', disabled: true});
+    private groupName = new FormControl('', Validators.required);
+    private groupAssistants = new FormControl([]);
+    private groupUsers = new FormControl([]);
+
 
 
     public ngOnInit(): void {
         this.active_user = this.userService.active_user;
         if (this.active_user && this.userService.roles.includes(this.userService.user_info.role) ) {
-            console.log("Admin user");
         } else {
             this.router.navigateByUrl('');
         }
@@ -90,6 +95,15 @@ export class AdminPageComponent implements OnInit {
     }
     public deleteGroupModal(groupDelete): void {
         this.modalService.open(groupDelete, { centered: true });
+    }
+    public editGroupModal(groupEdit): void {
+        this.groupId.setValue(this.selected_group._id);
+        this.groupName.setValue(this.selected_group.group_name);
+        this.groupAssistants.setValue(this.selected_group.group_assistants);
+        console.log(this.selected_group.group_assistants);
+        this.groupUsers.setValue(this.selected_group.group_users);
+        console.log(this.selected_group.group_users);
+        this.modalService.open(groupEdit, { centered: true });
     }
 
     public deleteChannel() {

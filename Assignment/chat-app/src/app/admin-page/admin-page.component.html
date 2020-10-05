@@ -20,7 +20,7 @@
         <div *ngIf="selected_group" class="mb-5 align-self-center">
             <button class="btn btn-outline-danger btn-sm" (click)="deleteGroupModal(groupDelete)">Delete</button>
             <button class="btn btn-success ml-5">New</button>
-            <button class="btn btn-outline-primary btn-sm ml-5">Update</button>
+            <button class="btn btn-outline-primary btn-sm ml-5" (click)="editGroupModal(groupEdit)">Update</button>
         </div>
 
     </div>
@@ -75,6 +75,57 @@
         <div class="btn-group">
             <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #groupEdit let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Updating <strong>{{ selected_group.group_name }}</strong></h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="groupId">Group ID</label>
+                <input [formControl]="groupId" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="groupName">Name</label>
+                <input [formControl]="groupName" type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="groupAssistants">Group Assistants</label>
+                <select [formControl]="groupAssistants" multiple class="form-control" name="groupUsers">
+                    <option *ngFor="let assistant of groupAssistants">{{ assistant }}</option>
+                </select>
+                <input  type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="groupUsers">Group Users</label>
+                <select multiple class="form-control" name="groupUsers">
+                    <!-- <option *ngFor="let user of channelUsers" value="{{user.user_id}}">{{ user.username }}  -  ({{ user.role }})</option> -->
+                </select>
+            </div>
+            <!-- <div class="form-group">
+                <label for="selected_user_add_channel">Add User to Channel</label>
+                <select name="selected_user_add_channel" class="form-control" [ngModel]="selected_user_add_channel" (ngModelChange)="addUserToChannel($event)">
+                    <option *ngFor="let allUser of allUsers" [ngValue]="allUser">{{ allUser.username }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+
+            </div> -->
+            <div class="modal-footer justify-content-between">
+                <div class="btn-group">
+                    <button class="btn btn-outline-danger mb-2 mr-2 float-left" (click)="modal.close('Close click')">Delete</button>
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary" >Update</button>
+                </div>
+            </div>
+        </form>
     </div>
 </ng-template>
 
