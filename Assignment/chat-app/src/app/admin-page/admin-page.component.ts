@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDataService } from '../services/user-data.service';
 import { GroupChannelService } from '../services/group-channel.service';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -24,7 +24,6 @@ export class AdminPageComponent implements OnInit {
     public channel: Object;
     public selected_group: Object;
 
-    public selected_user_add_channel;
     //FIX NEEDED: USED FOR DISPLAYING AN ERROR WHEN ADMIN TRIES TO ADD A USER TO A CHANNEL WHEN THEY ALREADY ARE
     public errorUser: boolean = false;
 
@@ -33,6 +32,12 @@ export class AdminPageComponent implements OnInit {
 
     // Modal
     public closeResult: string;
+
+    // Edit Channel Form
+    private channelId = new FormControl({value: '', disabled: true});
+    private channelGroupId = new FormControl({value: '', disabled: true});
+    private channelName = new FormControl('', Validators.required);
+
 
 
     public ngOnInit(): void {
@@ -60,6 +65,11 @@ export class AdminPageComponent implements OnInit {
     }
 
     public getChannelsUsers(channel: any): void {
+
+        this.channelId.setValue(channel._id);
+        this.channelGroupId.setValue(channel.group_id);
+        this.channelName.setValue(channel.channel_name);
+
         this.channelUsers = [];
         this.channel = channel;
 
@@ -83,10 +93,14 @@ export class AdminPageComponent implements OnInit {
     }
 
     public updateChannel() {
-        console.log(this.channel);
-        // this.groupChannelService.updateChannel(channel._id).subscribe( (data) => {
 
-        // });
+        let data = {channel_id: this.channelId.value, channel_name: this.channelName.value, channel_users: this.channelUsers};
+
+        this.groupChannelService.updateChannel(data).subscribe( (data) => {
+            if(data.ok == 1 && data.n == 1 && data.nModified == 1) {
+                this.getChannels(this.channelGroupId.value);
+            } else { console.log("ERROR Updating Channel");}
+        });
 
     }
 

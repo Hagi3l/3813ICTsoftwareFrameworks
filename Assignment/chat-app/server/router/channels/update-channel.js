@@ -6,7 +6,7 @@ module.exports = function(channelsCollection, app, ObjectId) {
         let cu = [];
 
         req.body.channel_users.forEach(user => {
-            cu.push(ObjectId(user));
+            cu.push(ObjectId(user._id));
         });
 
         channelsCollection.updateOne(
@@ -15,9 +15,9 @@ module.exports = function(channelsCollection, app, ObjectId) {
                 channel_name: req.body.channel_name,
                 channel_users: cu,
             }
-        }, (err) => {
+        }, (err, result) => {
             if(err) { return res.sendStatus(400); }
-            return res.status(200).send("Channel has successfully updated");
+            return res.send(result);
         });
     });
 };

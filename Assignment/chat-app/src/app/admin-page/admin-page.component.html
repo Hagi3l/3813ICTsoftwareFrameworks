@@ -41,15 +41,15 @@
         <form>
             <div class="form-group">
                 <label for="channelid">Channel ID</label>
-                <input type="text" class="form-control" name="" value="{{ channel._id }}" placeholder="{{ channel._id }}" disabled>
+                <input [formControl]="channelId" type="text" class="form-control" name="">
             </div>
             <div class="form-group">
-                <label for="channelid">Group ID</label>
-                <input type="text" class="form-control" name="" value="{{ channel.group_id }}" placeholder="{{ channel.group_id }}" disabled>
+                <label for="cgroupid">Group ID</label>
+                <input [formControl]="channelGroupId" type="text" class="form-control" name="cgroupid">
             </div>
             <div class="form-group">
-                <label for="channelname">Channel Name</label>
-                <input type="text" class="form-control" name="" value="{{ channel.channel_name }}">
+                <label for="channelName">Channel Name</label>
+                <input [formControl]="channelName" type="text" class="form-control" name="channelName" required>
             </div>
             <div class="form-group">
                 <label for="channel_users">Channel Users</label>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="btn-group">
                     <button type="submit" class="btn btn-primary" (click)="updateChannel()">Update</button>
-                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                    <!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
                 </div>
             </div>
         </form>
