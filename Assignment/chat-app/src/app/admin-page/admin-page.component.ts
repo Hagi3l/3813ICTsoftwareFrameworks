@@ -44,6 +44,7 @@ export class AdminPageComponent implements OnInit {
     private groupAssistants: Array<any> = [];
     private groupUsers: Array<any> = [];
     public selected_group_assistant: any;
+    public selected_group_users: any;
 
 
     public ngOnInit(): void {
@@ -114,6 +115,19 @@ export class AdminPageComponent implements OnInit {
             // Display an error to the admin
         } else {
             this.groupAssistants.push(user);
+        }
+
+    }
+
+    public addUserToGroup(user: any) {
+
+        const exists = Boolean(this.groupUsers.find(x => x._id === user._id));
+
+        if (exists || user.role == "super-admin" || user.role == "group-admin") {
+            console.log('found user');
+            // Display an error to the admin
+        } else {
+            this.groupUsers.push(user);
         }
 
     }
