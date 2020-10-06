@@ -37,6 +37,8 @@ export class ChatComponent implements OnInit {
     public groups = [];
     public group_selected: any;
 
+    public channel_selected: any = null;
+
     ngOnInit() {
 
         this.active_user = this.userService.active_user;
@@ -47,16 +49,8 @@ export class ChatComponent implements OnInit {
             this.router.navigateByUrl('');
         }
 
-    //   try {
-    //       this.username;
-    //       }
-    //     catch(err){
-    //       alert ("Please login");
-    //       this.router.navigateByUrl('/login');
-    //     }
-
         this.getGroups();
-        // this.initIoConnection();
+        this.initIoConnection();
     }
 
     private initIoConnection() {
@@ -88,14 +82,6 @@ export class ChatComponent implements OnInit {
                     }
                 });
             }
-
-            // if (exists || user.role == "super-admin" || user.role == "group-admin") {
-            //     console.log('found user');
-            //     // Display an error to the admin
-            // } else {
-            //     this.groupAssistants.push(user);
-            // }
-
         });
     }
 
@@ -115,7 +101,6 @@ export class ChatComponent implements OnInit {
                     }
                 });
             }
-            // console.log(data);
         });
     }
 
@@ -141,6 +126,11 @@ export class ChatComponent implements OnInit {
     }
 
     public groupSelected(group) {
+        this.channel_selected = null;
         this.getChannnels(group);
+    }
+
+    public channelSelected(channel) {
+        this.channel_selected = channel;
     }
 }
