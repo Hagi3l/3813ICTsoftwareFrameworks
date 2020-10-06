@@ -3,6 +3,7 @@ import { SocketService } from '../services/socket.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserDataService } from '../services/user-data.service';
+import { GroupChannelService } from '../services/group-channel.service';
 
 
 const BACKEND_URL = 'http://localhost:3000';
@@ -28,7 +29,7 @@ export class ChatComponent implements OnInit {
     username = localStorage.getItem('username');
     session: boolean;
 
-    constructor(private socketService:SocketService, private router: Router, private httpClient: HttpClient, private userService: UserDataService) { }
+    constructor(private socketService:SocketService, private router: Router, private httpClient: HttpClient, private userService: UserDataService, private groupChannelService: GroupChannelService) { }
 
     private active_user: boolean;
     private active_user_details: any;
@@ -55,11 +56,11 @@ export class ChatComponent implements OnInit {
 
     private initIoConnection() {
         this.socketService.initSocket();
-        this.socketService.onMessage().subscribe(data => this.messages.push(data));
+        this.socketService.onMessage().subscribe(data => this.saveChatHistory(data));
 
-        this.socketService.newUserJoined().subscribe(data => this.messages.push(data));
+        this.socketService.newUserJoined().subscribe(data => this.saveChatHistory(data));
 
-        this.socketService.userLeftRoom().subscribe(data => this.messages.push(data));
+        this.socketService.userLeftRoom().subscribe(data => this.saveChatHistory(data));
 
         console.log(this.messages);
     }
@@ -135,5 +136,13 @@ export class ChatComponent implements OnInit {
 
     public channelSelected(channel) {
         this.channel_selected = channel;
+    }
+
+    private saveChatHistory(chatData) {
+        this.messages.push(chatData);
+        let data = { channel_id: this.channel_selected._id, chat_history: chatData }
+        this.groupChannelService.saveChat(data).subscribe ((data) => {
+            console.log(data);
+        });
     }
 }

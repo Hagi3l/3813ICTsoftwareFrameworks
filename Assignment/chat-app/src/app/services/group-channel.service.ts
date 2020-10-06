@@ -29,4 +29,8 @@ export class GroupChannelService {
         return this.httpClient.post('/api/update-channel', channel);
     }
 
+    public saveChat(data: Object): Observable<any> {
+        return this.httpClient.post('/api/save-chat-history', data);
+    }
+
 }
