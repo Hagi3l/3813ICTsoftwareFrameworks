@@ -49,7 +49,7 @@ export class AdminPageComponent implements OnInit {
 
     public ngOnInit(): void {
         this.active_user = this.userService.active_user;
-        if (this.active_user && this.userService.roles.includes(this.userService.user_info.role) ) {
+        if (this.active_user && this.userService.roles.includes(this.userService.user_info.role) && this.userService.user_info.role !== "user" ) {
         } else {
             this.router.navigateByUrl('');
         }
@@ -131,6 +131,17 @@ export class AdminPageComponent implements OnInit {
         }
 
     }
+
+    public removeGroupAssistants(user: any) {
+        let index = this.groupAssistants.findIndex(x => x._id == user._id);
+        this.groupAssistants.splice(index, 1);
+    }
+
+    public removeGroupUsers(user: any) {
+        let index = this.groupUsers.findIndex(x => x._id == user._id);
+        this.groupUsers.splice(index, 1);
+    }
+
 
 
     // CHANNEL FUNCTIONS
