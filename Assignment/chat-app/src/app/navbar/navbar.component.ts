@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         if (this.userService.active_user) {
             this.active_user = true;
-            if(this.userService.roles.includes(this.userService.user_info.role)) {
+            if(this.userService.roles.includes(this.userService.user_info.role) && this.userService.user_info.role !== "user") {
                 this.admin = true;
             }
         }

@@ -9,7 +9,7 @@ export class UserDataService {
 
     private _active_user:boolean = false;
     private _user_info;
-    roles = ["super-admin", "group-admin", "group-assistant"];
+    roles = ["super-admin", "group-admin", "group-assistant", "user"];
 
     constructor(private httpClient: HttpClient) { }
 
