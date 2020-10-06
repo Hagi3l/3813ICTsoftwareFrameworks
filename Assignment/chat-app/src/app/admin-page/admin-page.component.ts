@@ -63,6 +63,8 @@ export class AdminPageComponent implements OnInit {
 
     // GROUP FUNCTIONS
     private getGroups() {
+        this.groups = [];
+        this.channels = [];
         this.groupChannelService.fetchGroupData().subscribe((data) => {
             this.groups = data;
         });
@@ -140,6 +142,18 @@ export class AdminPageComponent implements OnInit {
     public removeGroupUsers(user: any) {
         let index = this.groupUsers.findIndex(x => x._id == user._id);
         this.groupUsers.splice(index, 1);
+    }
+
+    public updateGroup() {
+
+        let data = { group_id: this.groupId.value, group_name: this.groupName.value, group_assistants: this.groupAssistants, group_users: this.groupUsers };
+
+        this.groupChannelService.updateGroup(data).subscribe( (data) => {
+            if(data.ok == 1 && data.n == 1 && data.nModified == 1) {
+                this.getGroups();
+            } else { console.log("ERROR Updating the Group");}
+        });
+
     }
 
 
