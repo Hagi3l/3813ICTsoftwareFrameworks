@@ -59,6 +59,7 @@ export class AdminPageComponent implements OnInit {
         });
     }
 
+    // GROUP FUNCTIONS
     private getGroups() {
         this.groupChannelService.fetchGroupData().subscribe((data) => {
             this.groups = data;
@@ -82,11 +83,32 @@ export class AdminPageComponent implements OnInit {
         }
     }
 
+    public deleteGroup() {
+        this.groupChannelService.deleteGroup(this.selected_group._id).subscribe( (data) => {
+            if(data.ok == 1 && data.n == 1 && data.deletedCount == 1) {
+                this.getGroups();
+                this.selected_group = null;
+            } else { console.log("ERROR Deleting Group");}
+        })
+    }
+
+    public deleteGroupModal(groupDelete): void {
+        this.modalService.open(groupDelete, { centered: true });
+    }
+
+    public editGroupModal(groupEdit): void {
+        this.getGroupData();
+        this.groupId.setValue(this.selected_group._id);
+        this.groupName.setValue(this.selected_group.group_name);
+
+        this.modalService.open(groupEdit, { centered: true });
+    }
+
+
+    // CHANNEL FUNCTIONS
     public getChannels(group: any): void  {
 
         this.selected_group = group;
-
-
 
         this.channels = [];
         this.groupChannelService.fetchChannelData(group._id).subscribe((data) => {
@@ -105,7 +127,11 @@ export class AdminPageComponent implements OnInit {
 
         for (const user of channel.channel_users) {
             this.userService.fetchUsersData(user).subscribe((data) => {
-                this.channelUsers.push(data);
+                if(data.role == "super-admin" || data.role == "group-admin") {
+                    console.log('this is an admin already')
+                } else {
+                    this.channelUsers.push(data);
+                }
             });
         }
     }
@@ -114,17 +140,6 @@ export class AdminPageComponent implements OnInit {
         this.modalService.open(channelEdit, { centered: true });
     }
 
-    public deleteGroupModal(groupDelete): void {
-        this.modalService.open(groupDelete, { centered: true });
-    }
-
-    public editGroupModal(groupEdit): void {
-        this.getGroupData();
-        this.groupId.setValue(this.selected_group._id);
-        this.groupName.setValue(this.selected_group.group_name);
-
-        this.modalService.open(groupEdit, { centered: true });
-    }
 
     public deleteChannel() {
         this.groupChannelService.deleteChannel(this.channelId.value).subscribe( (data) => {
@@ -150,7 +165,7 @@ export class AdminPageComponent implements OnInit {
 
         const exists = Boolean(this.channelUsers.find(x => x._id === user._id));
 
-        if (exists) {
+        if (exists || user.role == "super-admin" || user.role == "group-admin") {
             console.log('found user');
             // Display an error to the admin
         } else {
@@ -159,12 +174,4 @@ export class AdminPageComponent implements OnInit {
 
     }
 
-    public deleteGroup() {
-        this.groupChannelService.deleteGroup(this.selected_group._id).subscribe( (data) => {
-            if(data.ok == 1 && data.n == 1 && data.deletedCount == 1) {
-                this.getGroups();
-                this.selected_group = null;
-            } else { console.log("ERROR Deleting Group");}
-        })
-    }
 };
