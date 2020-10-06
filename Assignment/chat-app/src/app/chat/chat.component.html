@@ -4,17 +4,17 @@
   <div class="row">
     <div class="col-sm-5">
       <label for="groups">Choose a Group</label>
-      <select name="groups" id="groups" class="form-control" [(ngModel)]="group" (change)=(groupSelected())>
-          <option *ngFor="let g of groups" value="{{g.id}}">{{g.group_name}}</option>
+      <select name="groups" id="groups" class="form-control" [ngModel]="group_selected" (ngModelChange)="groupSelected($event)">
+          <option *ngFor="let g of groups" [ngValue]="g">{{g.group_name}}</option>
       </select>
     </div>
   </div>
   <h3 class="mt-5">Channels</h3>
   <div class="row">
     <div class="col-sm-5">
-      <label for="channels">Choose a Group</label>
+      <label for="channels">Choose a Channels</label>
       <select name="channels" id="channels" class="form-control" [(ngModel)]="channel">
-          <option *ngFor="let c of channels" value="{{c.channel_name}}">{{c.channel_name}}</option>
+          <option *ngFor="let c of channels" value="{{c}}">{{c.channel_name}}</option>
       </select>
     </div>
   </div>
