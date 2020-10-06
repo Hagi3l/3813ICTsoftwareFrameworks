@@ -35,6 +35,7 @@ export class AdminPageComponent implements OnInit {
     private channelId = new FormControl({value: '', disabled: true});
     private channelGroupId = new FormControl({value: '', disabled: true});
     private channelName = new FormControl('', Validators.required);
+    private addChannelName = new FormControl('', Validators.required);
     private channelUsers: Array<any> = [];
 
     // Edit Group Form
@@ -153,8 +154,8 @@ export class AdminPageComponent implements OnInit {
                 this.getGroups();
             } else { console.log("ERROR Updating the Group");}
         });
-
     }
+
 
 
 
@@ -224,7 +225,20 @@ export class AdminPageComponent implements OnInit {
         } else {
             this.channelUsers.push(user);
         }
+    }
 
+    public openAddChannelModel(channel): void {
+        this.modalService.open(channel, { centered: true });
+    }
+
+    public addChannel() {
+        let data = {group_id: this.selected_group._id, channel_name: this.addChannelName.value };
+
+        this.groupChannelService.addChannel(data).subscribe( (data) => {
+            if(data.ok == 1 && data.n == 1) {
+                this.getGroups();
+            } else { console.log("ERROR Adding new Channel");}
+        });
     }
 
 };
