@@ -107,8 +107,10 @@ export class ChatComponent implements OnInit {
 
     public chat() {
         if (this.newMessage) {
-
-            this.socketService.send({username: this.username, room: this.channel, message: this.newMessage});
+            // send data to socket to process
+            // send message history to database
+            let data = {username: this.active_user_details.username, room: this.channel_selected._id, message: this.newMessage};
+            this.socketService.send(data);
             this.newMessage = '';
 
         } else {
@@ -117,12 +119,13 @@ export class ChatComponent implements OnInit {
     }
 
     public join() {
-
-        this.socketService.joinRoom({username: this.username, room: this.channel});
+        let data = {username: this.active_user_details.username, room: this.channel_selected._id};
+        this.socketService.joinRoom(data);
     }
 
     public leave() {
-        this.socketService.leaveRoom({username: this.username, room: this.channel});
+        let data = {username: this.active_user_details.username, room: this.channel_selected._id};
+        this.socketService.leaveRoom(data);
     }
 
     public groupSelected(group) {
