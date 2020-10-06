@@ -18,7 +18,6 @@
         </form>
 
         <div *ngIf="selected_group" class="mb-5 align-self-center">
-            <button class="btn btn-outline-danger btn-sm" >Delete</button>
             <button class="btn btn-success ml-5">New</button>
             <button class="btn btn-outline-primary btn-sm ml-5" (click)="editGroupModal(groupEdit)">Edit</button>
         </div>
@@ -100,7 +99,14 @@
                 <select multiple class="form-control" name="groupUsers">
                     <option *ngFor="let assistant of groupAssistants">{{ assistant.username }}  -  ({{ assistant.role }})</option>
                 </select>
-                <input  type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="selected_group_assistant">Add User to Group Assistants Role</label>
+                <select name="selected_group_assistant" class="form-control" [ngModel]="selected_group_assistant" (ngModelChange)="addUserToGroupAssis($event)">
+                    <option *ngFor="let allUser of allUsers" [ngValue]="allUser">{{ allUser.username }}</option>
+                </select>
+                <!-- FIX: not showing unless true -->
+                <div class="alert-danger" >User already in the channel</div>
             </div>
             <div class="form-group">
                 <label for="groupUsers">Group Users</label>
@@ -164,9 +170,6 @@
                 </select>
                 <!-- FIX: not showing unless true -->
                 <div class="alert-danger" >User already in the channel</div>
-            </div>
-            <div class="form-group">
-
             </div>
             <div class="modal-footer justify-content-between">
                 <div class="btn-group">

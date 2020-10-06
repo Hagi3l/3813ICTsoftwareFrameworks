@@ -41,8 +41,9 @@ export class AdminPageComponent implements OnInit {
     private groupId = new FormControl({value: '', disabled: true});
     private groupName = new FormControl('', Validators.required);
     public selected_group: any;
-    private groupUsers: Array<any> = [];
     private groupAssistants: Array<any> = [];
+    private groupUsers: Array<any> = [];
+    public selected_group_assistant: any;
 
 
     public ngOnInit(): void {
@@ -102,6 +103,19 @@ export class AdminPageComponent implements OnInit {
         this.groupName.setValue(this.selected_group.group_name);
 
         this.modalService.open(groupEdit, { centered: true });
+    }
+
+    public addUserToGroupAssis(user: any) {
+
+        const exists = Boolean(this.groupAssistants.find(x => x._id === user._id));
+
+        if (exists || user.role == "super-admin" || user.role == "group-admin") {
+            console.log('found user');
+            // Display an error to the admin
+        } else {
+            this.groupAssistants.push(user);
+        }
+
     }
 
 
