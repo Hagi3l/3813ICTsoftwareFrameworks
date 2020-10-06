@@ -21,6 +21,10 @@ export class GroupChannelService {
         return this.httpClient.post('/api/update-group', data);
     }
 
+    public addGroup(group: Object): Observable<any> {
+        return this.httpClient.post('/api/add-new-group', group);
+    }
+
     public fetchChannelData(groupId: string): Observable<any> {
         return this.httpClient.get('/api/get-channels/' + groupId);
     }

@@ -18,8 +18,10 @@
         </form>
 
         <div *ngIf="selected_group" class="mb-5 align-self-center">
-            <button class="btn btn-success ml-5">New</button>
             <button class="btn btn-outline-primary btn-sm ml-5" (click)="editGroupModal(groupEdit)">Edit</button>
+        </div>
+        <div class="mb-5 align-self-center">
+            <button class="btn btn-success ml-5" (click)="openAddGroupModel(groupNew)">New</button>
         </div>
 
     </div>
@@ -200,6 +202,28 @@
             <div class="modal-footer justify-content-between">
                 <div class="btn-group">
                     <button type="submit" class="btn btn-primary" (click)="addChannel()" (click)="modal.close('Close click')">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #groupNew let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">New Group</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="addGroupName">Channel Name</label>
+                <input [formControl]="addGroupName" type="text" class="form-control" name="addGroupName" required>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary" (click)="addGroup()" (click)="modal.close('Close click')">Add</button>
                 </div>
             </div>
         </form>
