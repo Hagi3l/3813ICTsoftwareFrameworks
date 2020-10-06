@@ -12,7 +12,7 @@ module.exports = (usersCollection, app) => {
             bcrypt.compare(req.body.password, data.password, (err, result) => {
                 if(err) { return res.sendStatus(400); }
                 if (result === true) {
-                    return res.status(200).send({ username: data.username, email: data.email, role: data.role });
+                    return res.status(200).send({ _id: data._id, username: data.username, email: data.email, role: data.role });
                 } else {
                     return res.status(200).send({ code: 2, message: "Password does not match"});
                 }
@@ -20,6 +20,3 @@ module.exports = (usersCollection, app) => {
         });
     });
 };
-
-  //TODO:
-    // set local session for persistance
