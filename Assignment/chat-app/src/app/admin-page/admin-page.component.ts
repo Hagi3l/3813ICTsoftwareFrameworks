@@ -20,9 +20,7 @@ export class AdminPageComponent implements OnInit {
     // Init Values
     public groups: Array<any>;
     public channels: Array<any>;
-    public channelUsers: Array<any> = [];
     public channel: Object;
-    public selected_group: any;
 
     // FIX NEEDED: USED FOR DISPLAYING AN ERROR WHEN ADMIN TRIES TO ADD A USER TO A CHANNEL WHEN THEY ALREADY ARE
     public errorUser: boolean = false;
@@ -37,13 +35,16 @@ export class AdminPageComponent implements OnInit {
     private channelId = new FormControl({value: '', disabled: true});
     private channelGroupId = new FormControl({value: '', disabled: true});
     private channelName = new FormControl('', Validators.required);
+    public channelUsers: Array<any> = [];
 
     // Edit Group Form
     private groupId = new FormControl({value: '', disabled: true});
     private groupName = new FormControl('', Validators.required);
-    private groupAssistants = new FormControl([]);
-    private groupUsers = new FormControl([]);
-
+    // private groupAssistants = new FormControl([]);
+    // private groupUsers = new FormControl([]);
+    public selected_group: any;
+    public groupUsers: Array<any> = [];
+    public groupAssistants: Array<any> = [];
 
 
     public ngOnInit(): void {
@@ -66,8 +67,29 @@ export class AdminPageComponent implements OnInit {
         });
     }
 
+    private getGroupData() {
+        this.groupAssistants = [];
+        this.groupUsers = [];
+
+        for (const user of this.selected_group.group_assistants) {
+            this.userService.fetchUsersData(user).subscribe((data) => {
+                this.groupAssistants.push(data);
+            });
+        }
+
+        for (const user of this.selected_group.group_users) {
+            this.userService.fetchUsersData(user).subscribe((data) => {
+                this.groupUsers.push(data);
+            });
+        }
+    }
+
     public getChannels(group: any): void  {
+
         this.selected_group = group;
+
+        this.getGroupData();
+
         this.channels = [];
         this.groupChannelService.fetchChannelData(group._id).subscribe((data) => {
             this.channels = data;
@@ -93,16 +115,16 @@ export class AdminPageComponent implements OnInit {
     public openChannelEditModel(channelEdit): void {
         this.modalService.open(channelEdit, { centered: true });
     }
+
     public deleteGroupModal(groupDelete): void {
         this.modalService.open(groupDelete, { centered: true });
     }
+
     public editGroupModal(groupEdit): void {
+
         this.groupId.setValue(this.selected_group._id);
         this.groupName.setValue(this.selected_group.group_name);
-        this.groupAssistants.setValue(this.selected_group.group_assistants);
-        console.log(this.selected_group.group_assistants);
-        this.groupUsers.setValue(this.selected_group.group_users);
-        console.log(this.selected_group.group_users);
+
         this.modalService.open(groupEdit, { centered: true });
     }
 
