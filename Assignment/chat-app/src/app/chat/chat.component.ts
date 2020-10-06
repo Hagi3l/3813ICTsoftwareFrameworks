@@ -108,8 +108,6 @@ export class ChatComponent implements OnInit {
 
     public chat() {
         if (this.newMessage) {
-            // send data to socket to process
-            // send message history to database
             let data = {username: this.active_user_details.username, room: this.channel_selected._id, message: this.newMessage};
             this.socketService.send(data);
             this.newMessage = '';
@@ -140,9 +138,7 @@ export class ChatComponent implements OnInit {
 
     private saveChatHistory(chatData) {
         this.messages.push(chatData);
-        let data = { channel_id: this.channel_selected._id, chat_history: chatData }
-        this.groupChannelService.saveChat(data).subscribe ((data) => {
-            console.log(data);
-        });
+        let data = { channel_id: this.channel_selected._id, chat_history: chatData };
+        this.groupChannelService.saveChat(data).subscribe (() => {});
     }
 }
