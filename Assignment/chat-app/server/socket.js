@@ -18,12 +18,12 @@ module.exports = {
           socket.join(data.room);
           console.log(data.username + ' entered ' + data.room);
 
-          socket.broadcast.to(data.room).emit('new user joined', {username:data.username, message: 'has joined'});
+          socket.broadcast.to(data.room).emit('new user joined', {username:data.username, message: 'has joined the chat 😃'});
       });
 
       socket.on('leave', (data) => {
         console.log(data.username + ' left ' + data.room);
-        socket.broadcast.to(data.room).emit('user left', {username:data.username, message: 'has left'});
+        socket.broadcast.to(data.room).emit('user left', {username:data.username, message: 'has left the chat 😢'});
         socket.leave(data.room);
     });
 
