@@ -35,16 +35,14 @@ export class AdminPageComponent implements OnInit {
     private channelId = new FormControl({value: '', disabled: true});
     private channelGroupId = new FormControl({value: '', disabled: true});
     private channelName = new FormControl('', Validators.required);
-    public channelUsers: Array<any> = [];
+    private channelUsers: Array<any> = [];
 
     // Edit Group Form
     private groupId = new FormControl({value: '', disabled: true});
     private groupName = new FormControl('', Validators.required);
-    // private groupAssistants = new FormControl([]);
-    // private groupUsers = new FormControl([]);
     public selected_group: any;
-    public groupUsers: Array<any> = [];
-    public groupAssistants: Array<any> = [];
+    private groupUsers: Array<any> = [];
+    private groupAssistants: Array<any> = [];
 
 
     public ngOnInit(): void {
@@ -88,7 +86,7 @@ export class AdminPageComponent implements OnInit {
 
         this.selected_group = group;
 
-        this.getGroupData();
+
 
         this.channels = [];
         this.groupChannelService.fetchChannelData(group._id).subscribe((data) => {
@@ -121,7 +119,7 @@ export class AdminPageComponent implements OnInit {
     }
 
     public editGroupModal(groupEdit): void {
-
+        this.getGroupData();
         this.groupId.setValue(this.selected_group._id);
         this.groupName.setValue(this.selected_group.group_name);
 
@@ -142,7 +140,7 @@ export class AdminPageComponent implements OnInit {
 
         this.groupChannelService.updateChannel(data).subscribe( (data) => {
             if(data.ok == 1 && data.n == 1 && data.nModified == 1) {
-                this.getChannels(this.channelGroupId.value);
+                this.getChannels({_id: this.channelGroupId.value});
             } else { console.log("ERROR Updating Channel");}
         });
 
