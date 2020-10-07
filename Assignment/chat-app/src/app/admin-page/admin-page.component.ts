@@ -23,7 +23,8 @@ export class AdminPageComponent implements OnInit {
     public channel: Object;
 
     // FIX NEEDED: USED FOR DISPLAYING AN ERROR WHEN ADMIN TRIES TO ADD A USER TO A CHANNEL WHEN THEY ALREADY ARE
-    public errorUser: boolean = false;
+    public errorMsg: boolean = false;
+    public errorMsg2: boolean = false;
 
     // Users
     private allUsers: Array<any>;
@@ -111,29 +112,25 @@ export class AdminPageComponent implements OnInit {
     }
 
     public addUserToGroupAssis(user: any) {
-
+        this.errorMsg = false;
         const exists = Boolean(this.groupAssistants.find(x => x._id === user._id));
 
         if (exists || user.role == "super-admin" || user.role == "group-admin") {
-            console.log('found user');
-            // Display an error to the admin
+            this.errorMsg = true;
         } else {
             this.groupAssistants.push(user);
         }
-
     }
 
     public addUserToGroup(user: any) {
-
+        this.errorMsg2 = false;
         const exists = Boolean(this.groupUsers.find(x => x._id === user._id));
 
         if (exists || user.role == "super-admin" || user.role == "group-admin") {
-            console.log('found user');
-            // Display an error to the admin
+            this.errorMsg2 = true;
         } else {
             this.groupUsers.push(user);
         }
-
     }
 
     public removeGroupAssistants(user: any) {
@@ -217,12 +214,11 @@ export class AdminPageComponent implements OnInit {
     }
 
     public addUserToChannel(user: any) {
-
+        this.errorMsg2 = false;
         const exists = Boolean(this.channelUsers.find(x => x._id === user._id));
 
         if (exists || user.role == "super-admin" || user.role == "group-admin") {
-            console.log('found user');
-            // Display an error to the admin
+            this.errorMsg2 = true;
         } else {
             this.channelUsers.push(user);
         }

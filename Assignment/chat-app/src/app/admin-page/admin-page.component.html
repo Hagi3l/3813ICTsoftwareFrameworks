@@ -108,8 +108,7 @@
                 <select name="selected_group_assistant" class="form-control" [ngModel]="selected_group_assistant" (ngModelChange)="addUserToGroupAssis($event)">
                     <option *ngFor="let allUser of allUsers" [ngValue]="allUser">{{ allUser.username }}</option>
                 </select>
-                <!-- FIX: not showing unless true -->
-                <div class="alert-danger" >User already in the channel</div>
+                <div *ngIf="errorMsg" class="alert alert-danger mt-1" role="alert">User already an Admin or Group Assistant</div>
             </div>
             <div class="form-group">
                 <label for="groupUsers">Group Users</label>
@@ -123,8 +122,7 @@
                 <select name="selected_group_users" class="form-control" [ngModel]="selected_group_users" (ngModelChange)="addUserToGroup($event)">
                     <option *ngFor="let allUser of allUsers" [ngValue]="allUser">{{ allUser.username }}</option>
                 </select>
-                <!-- FIX: not showing unless true -->
-                <div class="alert-danger" >User already in the channel</div>
+                <div *ngIf="errorMsg2" class="alert alert-danger mt-1" role="alert">User already in Group or is an Admin</div>
             </div>
             <div class="modal-footer justify-content-between">
                 <div class="btn-group">
@@ -171,8 +169,7 @@
                 <select name="selected_user_add_channel" class="form-control" [ngModel]="selected_user_add_channel" (ngModelChange)="addUserToChannel($event)">
                     <option *ngFor="let allUser of allUsers" [ngValue]="allUser">{{ allUser.username }}</option>
                 </select>
-                <!-- FIX: not showing unless true -->
-                <div class="alert-danger" >User already in the channel</div>
+                <div *ngIf="errorMsg2" class="alert alert-danger mt-1" role="alert">User already in Group or is an Admin</div>
             </div>
             <div class="modal-footer justify-content-between">
                 <div class="btn-group">
