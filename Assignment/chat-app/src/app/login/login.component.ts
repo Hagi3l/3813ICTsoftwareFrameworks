@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
     active_user: boolean = false;
     loginDetails = null;
 
+    public error: any;
+
     ngOnInit() {
         if (this.userService.active_user) {
             this.router.navigateByUrl('');
@@ -28,8 +30,7 @@ export class LoginComponent implements OnInit {
     login() {
         this.httpClient.post('/api/login-auth', this.loginDetails).subscribe((data: any) => {
             if (data.code == 1 || data.code == 2) {
-                console.log('error');
-                // display error in login field
+                this.error = data;
             } else {
                 localStorage.setItem('active-user', JSON.stringify(
                     {
