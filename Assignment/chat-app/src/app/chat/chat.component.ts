@@ -20,14 +20,6 @@ export class ChatComponent implements OnInit {
 
     newMessage:String;
     messages:Array<{username:String, message:String}> = [];
-    // groups:Array<{id:Number, group_name:String, users:Array<String>}> = [];
-
-    channels:Array<{id:Number, channel_name:String, group_id:Number, users:Array<String>}> = [];
-    channel:String;
-    ioConnection:any;
-
-    username = localStorage.getItem('username');
-    session: boolean;
 
     constructor(private socketService:SocketService, private router: Router, private httpClient: HttpClient, private userService: UserDataService, private groupChannelService: GroupChannelService) { }
 
@@ -38,6 +30,7 @@ export class ChatComponent implements OnInit {
     public groups = [];
     public group_selected: any;
 
+    public channels: any = [];
     public channel_selected: any = null;
 
     ngOnInit() {
@@ -61,8 +54,6 @@ export class ChatComponent implements OnInit {
         this.socketService.newUserJoined().subscribe(data => this.saveChatHistory(data));
 
         this.socketService.userLeftRoom().subscribe(data => this.saveChatHistory(data));
-
-        console.log(this.messages);
     }
 
     private getGroups() {
@@ -97,12 +88,14 @@ export class ChatComponent implements OnInit {
                     const exists = Boolean(channel.channel_users.find(x => x === this.active_user_details._id));
                     if (exists) {
                         this.channels.push(channel);
+
                     } else {
                         console.log('not in any channels');
                     }
                 });
             }
         });
+
     }
 
 
@@ -133,6 +126,7 @@ export class ChatComponent implements OnInit {
     }
 
     public channelSelected(channel) {
+        this.messages = channel.chat_history;
         this.channel_selected = channel;
     }
 
