@@ -28,10 +28,12 @@ export class ChatComponent implements OnInit {
     private active_user_group_assistant: boolean = false;
 
     public groups = [];
-    public group_selected: any;
+    public group_selected: any = null;
 
-    public channels: any = [];
+    public channels: any = null;
     public channel_selected: any = null;
+
+    public clicked: boolean = false;
 
     ngOnInit() {
 
@@ -111,22 +113,25 @@ export class ChatComponent implements OnInit {
     }
 
     public join() {
+        this.messages = this.channel_selected.chat_history;
+        this.clicked = true;
         let data = {username: this.active_user_details.username, room: this.channel_selected._id};
         this.socketService.joinRoom(data);
     }
 
     public leave() {
+        this.messages = [];
+        this.clicked = false;
         let data = {username: this.active_user_details.username, room: this.channel_selected._id};
         this.socketService.leaveRoom(data);
     }
 
     public groupSelected(group) {
-        this.channel_selected = null;
         this.getChannnels(group);
     }
 
     public channelSelected(channel) {
-        this.messages = channel.chat_history;
+        this.clicked = false;
         this.channel_selected = channel;
     }
 

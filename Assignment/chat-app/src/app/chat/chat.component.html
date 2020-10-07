@@ -1,47 +1,51 @@
-<div class="container">
+<div class="container d-flex flex-column">
+    <div class="mt-5">
 
-  <h3>Groups</h3>
-  <div class="row">
-    <div class="col-sm-5">
-      <label for="groups">Choose a Group</label>
-      <select name="groups" id="groups" class="form-control" [ngModel]="group_selected" (ngModelChange)="groupSelected($event)">
-          <option *ngFor="let g of groups" [ngValue]="g">{{g.group_name}}</option>
-      </select>
+        <div class="row">
+            <h4>Select a Group</h4>
+            <div class="col-sm-5 ml-3">
+                <!-- <label for="groups">Choose a Group</label> -->
+                <select [disabled]="clicked" name="groups" id="groups" class="custom-select" [ngModel]="group_selected" (ngModelChange)="groupSelected($event)">
+                    <option *ngFor="let g of groups" [ngValue]="g">{{g.group_name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div *ngIf="channels != null" class="row mt-5">
+            <h4>Select a Channel</h4>
+            <div class="col-sm-5">
+                <!-- <label for="channels">Choose a Channels</label> -->
+                <select [disabled]="clicked" name="channels" id="channels" class="form-control custom-select" [ngModel]="channel_selected" (ngModelChange)="channelSelected($event)">
+                    <option *ngFor="let c of channels" [ngValue]="c">{{c.channel_name}}</option>
+                </select>
+            </div>
+        </div>
+        <div *ngIf="channel_selected != null" class="row mt-5">
+            <button [disabled]="clicked" (click)="join()" class="btn btn-success mr-3" id="join" >Join</button>
+            <button [disabled]="!clicked" (click)="leave()" class="btn btn-danger" id="leave">Leave</button>
+        </div>
     </div>
-  </div>
-  <h3 class="mt-5">Channels</h3>
-  <div class="row">
-    <div class="col-sm-5">
-      <label for="channels">Choose a Channels</label>
-      <select name="channels" id="channels" class="form-control" [ngModel]="channel_selected" (ngModelChange)="channelSelected($event)">
-          <option *ngFor="let c of channels" [ngValue]="c">{{c.channel_name}}</option>
-      </select>
-    </div>
-  </div>
-  <div class="row mt-5" *ngIf="channel_selected">
-    <button (click)="join()" class="btn btn-primary mr-3" id="join" >Join</button>
-    <button (click)="leave()" class="btn btn-primary" id="leave">Leave</button>
-  </div>
 
-  <br>
-
-  <h3 class="mt-5">Messages</h3>
-    <div class="row">
-      <div class="well" style="height:200px; padding:15px;">
-          <div *ngFor="let item of messages">
-          <span><strong>{{item.username}} : </strong> {{item.message}}</span>
+    <div class="">
+        <h3 class="mt-5">Messages</h3>
+        <div class="row">
+          <div class="well" style="height:200px; padding:15px;">
+              <div *ngFor="let item of messages">
+              <span><strong>{{item.username}} : </strong> {{item.message}}</span>
+              </div>
           </div>
       </div>
-  </div>
-  <div>
-    <form>
-      <div class="form-group">
-        <label for="newMessage">New Message</label>
-        <input type="text" [(ngModel)]="newMessage" class="form-control" id="newMessage" name="newMessage">
+      <div>
+        <form>
+          <div class="form-group">
+            <label for="newMessage">New Message</label>
+            <input type="text" [(ngModel)]="newMessage" class="form-control" id="newMessage" name="newMessage">
+          </div>
+          <div class="form-group">
+            <button (click)="chat()" class="btn btn-primary mr-3">Send</button>
+          </div>
+        </form>
       </div>
-      <div class="form-group">
-        <button (click)="chat()" class="btn btn-primary mr-3">Send</button>
-      </div>
-    </form>
-  </div>
+    </div>
+
 </div>
