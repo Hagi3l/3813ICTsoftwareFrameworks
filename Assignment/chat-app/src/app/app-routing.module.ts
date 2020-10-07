@@ -10,12 +10,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiHttpInterceptor } from './api-http.interceptor';
 
 const routes: Routes = [
-
-  {path: 'chat', component: ChatComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'account', component: AccountComponent},
-  {path: 'admin', component: AdminPageComponent},
-
+    {path: '', redirectTo: 'chat', pathMatch: 'full'},
+    {path: 'chat', component: ChatComponent},
+    {path: 'login', component: LoginComponent},
+    {path: 'account', component: AccountComponent},
+    {path: 'admin', component: AdminPageComponent},
 ];
 
 @NgModule({

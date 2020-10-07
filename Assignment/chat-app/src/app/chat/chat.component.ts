@@ -36,13 +36,17 @@ export class ChatComponent implements OnInit {
     public clicked: boolean = false;
 
     ngOnInit() {
+        if(this.userService.active_user) {
+            this.active_user = this.userService.active_user;
+        } else {
+            this.router.navigateByUrl('login');
+        }
 
-        this.active_user = this.userService.active_user;
         if (this.active_user && this.userService.roles.includes(this.userService.user_info.role) ) {
             this.active_user_details = this.userService.user_info;
             console.log(this.active_user_details);
         } else {
-            this.router.navigateByUrl('');
+            this.router.navigateByUrl('login');
         }
 
         this.getGroups();
