@@ -114,6 +114,7 @@ export class ChatComponent implements OnInit {
 
     public join() {
         this.messages = this.channel_selected.chat_history;
+        window.scrollTo(0,9999);
         this.clicked = true;
         let data = {username: this.active_user_details.username, room: this.channel_selected._id};
         this.socketService.joinRoom(data);
